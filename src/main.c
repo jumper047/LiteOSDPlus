@@ -25,6 +25,7 @@ unsigned char  showcase = 9;
 unsigned char  VOT_value[3] = {0};
 unsigned char  flymode = 0;
 unsigned char  proto=1;
+unsigned char  rssi_value[2] = {0};
 unsigned char  index=0;
 unsigned char  m1 = 0;
 unsigned char  m2 = 0;
@@ -133,6 +134,9 @@ void flight_window_data()
     VOT_value[2] = (Vol%100%10) << 3;
 
     proto = UART_Buffer[5];
+
+    rssi_value[0] = (UART_Buffer[8] / 10) << 3;
+    rssi_value[1] = (UART_Buffer[8] % 10) << 3;
 
     chn[1] = (UART_Buffer[6] >>0) & 0x1;
     chn[2] = (UART_Buffer[6] >>1) & 0x1;
