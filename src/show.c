@@ -11,6 +11,7 @@ extern unsigned char  minute;
 extern unsigned char  second;
 extern unsigned char  flymode;
 extern unsigned char  proto;
+extern unsigned char  rssi_value[2];
 extern unsigned char  index;
 extern unsigned char  lock;
 extern unsigned char  m1;
@@ -372,46 +373,53 @@ void flight_window(unsigned short line)
     if(mode_l<line && line<mode_l+9)
     {
         temp = line - mode_l;
-        switch (proto)
-        {
-            case 0:
-            case 1:
-                delay(5);
-                SPI0DAT =letters[_b+(temp)];
-                SPI0DAT =letters[_a+(temp)];
-                SPI0DAT =letters[_y+(temp)];
-                SPI0DAT =letters[_a+(temp)];
-                delay(1);
-                SPI0DAT =letters[_n+(temp)];
-                delay(3);
-                SPI0DAT =letters[_g+(temp)];
-                delay(4);
-                break;
-            case 2:
-                delay(5);
-                SPI0DAT =letters[_s+(temp)];
-                SPI0DAT =letters[_b+(temp)];
-                SPI0DAT =letters[_u+(temp)];
-                SPI0DAT =letters[_s+(temp)];
-                delay(2);
-                break;
-            case 3:
-                delay(5);
-                SPI0DAT =letters[_d+(temp)];
-                SPI0DAT =letters[_s+(temp)];
-                SPI0DAT =letters[_m+(temp)];
-                SPI0DAT =letters[_x+(temp)];
-                delay(2);
-                break;
-            case 5:
+	if ((rssi_value[0] == 0) && (rssi_value[1] == 0)) {
+          switch (proto) {
+          case 0:
+          case 1:
+            delay(5);
+            SPI0DAT = letters[_b + (temp)];
+            SPI0DAT = letters[_a + (temp)];
+            SPI0DAT = letters[_y + (temp)];
+            SPI0DAT = letters[_a + (temp)];
+            delay(1);
+            SPI0DAT = letters[_n + (temp)];
+            delay(3);
+            SPI0DAT = letters[_g + (temp)];
+            delay(4);
+            break;
+          case 2:
+            delay(5);
+            SPI0DAT = letters[_s + (temp)];
+            SPI0DAT = letters[_b + (temp)];
+            SPI0DAT = letters[_u + (temp)];
+            SPI0DAT = letters[_s + (temp)];
+            delay(2);
+            break;
+          case 3:
+            delay(5);
+            SPI0DAT = letters[_d + (temp)];
+            SPI0DAT = letters[_s + (temp)];
+            SPI0DAT = letters[_m + (temp)];
+            SPI0DAT = letters[_x + (temp)];
+            delay(2);
+            break;
+                 case 5:
                 delay(5);
                 SPI0DAT =letters[_i+(temp)];
                 SPI0DAT =letters[_b+(temp)];
                 SPI0DAT =letters[_u+(temp)];
                 SPI0DAT =letters[_s+(temp)];
                 delay(2);
-                break;		
-        }
+                break;	
+          }
+        } else {
+	  delay(5);
+	  SPI0DAT = numbers[152 + (temp)];
+	  SPI0DAT = numbers[rssi_value[0] + (temp)];
+	  SPI0DAT = numbers[rssi_value[1] + (temp)];
+	}
+
         switch (flymode)
         {
             case 0:
