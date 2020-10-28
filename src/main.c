@@ -69,9 +69,10 @@ unsigned char mode_l_temp[2]={0};
 unsigned char vol_l_temp[2]={0};
 unsigned char turtle_l_temp[2]={0};
 unsigned char low_battery[2]={24,16};
+unsigned char low_rssi[2]={0,0};
 unsigned char name_l_temp[2]={0};
 unsigned char crosschair_l_temp[2]={0};
-unsigned char name[10]={0x10, 0x10, 0x10};
+unsigned char name[10]={0};
 
 extern unsigned char UART_Buffer[12];
 extern void delay(unsigned char n);
@@ -111,37 +112,14 @@ void display_window_data()
 {
     index = UART_Buffer[1];
     
-    low_bat_l = UART_Buffer[2] * 10;
-    mode_l = UART_Buffer[3] *10 ;
-    vol_l = UART_Buffer[4] *10 ;
-    turtle_l = UART_Buffer[6] * 10;
-    name_l = UART_Buffer[8] * 10;
-    crosschair_l = UART_Buffer[9] * 10;
-    
-    low_bat_l_temp[0] = (UART_Buffer[2]/10) << 3;
-    low_bat_l_temp[1] = (UART_Buffer[2]%10) << 3;
-    
-    mode_l_temp[0] = (UART_Buffer[3]/10) << 3;
-    mode_l_temp[1] = (UART_Buffer[3]%10) << 3;
-    
-    vol_l_temp[0] = (UART_Buffer[4]/10) << 3;
-    vol_l_temp[1] = (UART_Buffer[4]%10) << 3;
-        
-    turtle_l_temp[0] = (UART_Buffer[6]/10) << 3;
-    turtle_l_temp[1] = (UART_Buffer[6]%10) << 3;
+    display_name = (UART_Buffer[2]) & 0x1;
+    display_crosschair = (UART_Buffer[3]) & 0x1;
 
-    low_battery[0] = (UART_Buffer[7]/10) << 3;
-    low_battery[1] = (UART_Buffer[7]%10) << 3;
+    low_battery[0] = (UART_Buffer[4]/10) << 3;
+    low_battery[1] = (UART_Buffer[4]%10) << 3;
 
-    name_l_temp[0] = (UART_Buffer[8]/10) << 3;
-    name_l_temp[1] = (UART_Buffer[8]%10) << 3;
-
-    crosschair_l_temp[0] = (UART_Buffer[9]/10) << 3;
-    crosschair_l_temp[1] = (UART_Buffer[9]%10) << 3;
-
-    display_name = (UART_Buffer[9]) & 0x1;
-    display_crosschair = ((UART_Buffer[7]/10) >> 1 ) & 0x1;
-
+    low_rssi[0] = (UART_Buffer[5]/10) << 3;
+    low_rssi[1] = (UART_Buffer[5]%10) << 3;
 }
 
 void flight_window_data()
@@ -290,6 +268,36 @@ void sa_window_data()
     vtx_power_index = UART_Buffer[6];
 }
 
+void disposition_window_data()
+{
+    index = UART_Buffer[1];
+    
+    low_bat_l = UART_Buffer[2] * 10;
+    mode_l = UART_Buffer[3] *10 ;
+    vol_l = UART_Buffer[4] *10 ;
+    turtle_l = UART_Buffer[6] * 10;
+    name_l = UART_Buffer[7] * 10;
+    crosschair_l = UART_Buffer[8] * 10;
+    
+    low_bat_l_temp[0] = (UART_Buffer[2]/10) << 3;
+    low_bat_l_temp[1] = (UART_Buffer[2]%10) << 3;
+    
+    mode_l_temp[0] = (UART_Buffer[3]/10) << 3;
+    mode_l_temp[1] = (UART_Buffer[3]%10) << 3;
+    
+    vol_l_temp[0] = (UART_Buffer[4]/10) << 3;
+    vol_l_temp[1] = (UART_Buffer[4]%10) << 3;
+        
+    turtle_l_temp[0] = (UART_Buffer[6]/10) << 3;
+    turtle_l_temp[1] = (UART_Buffer[6]%10) << 3;
+
+    name_l_temp[0] = (UART_Buffer[7]/10) << 3;
+    name_l_temp[1] = (UART_Buffer[7]%10) << 3;
+
+    crosschair_l_temp[0] = (UART_Buffer[8]/10) << 3;
+    crosschair_l_temp[1] = (UART_Buffer[8]%10) << 3;
+}
+
 void name_data()
 {
   unsigned char symbols;
@@ -358,6 +366,8 @@ void main (void)
                 rates_window_data();
                 break;
 	case 8:
+	  disposition_window_data();
+	  break;
 	case 9:
 	  name_data();
 	  break;
