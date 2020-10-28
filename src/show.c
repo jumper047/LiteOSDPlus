@@ -34,17 +34,28 @@ extern unsigned char main_version;
 extern unsigned char modify_version;
 extern unsigned char low_line_l;
 extern unsigned char low_line_h;
+extern unsigned char display_crosschair;
+extern unsigned char display_name;
+extern unsigned char name_delay;
 
 extern unsigned short low_bat_l;
 extern unsigned short mode_l;
 extern unsigned short vol_l;
 extern unsigned short turtle_l;
+extern unsigned short name_l;
+extern unsigned short crosschair_l;
+
+
 
 extern unsigned char low_bat_l_temp[2];
 extern unsigned char mode_l_temp[2];
 extern unsigned char vol_l_temp[2];
 extern unsigned char turtle_l_temp[2];
 extern unsigned char low_battery[2];
+extern unsigned char name_l_temp[2];
+extern unsigned char crosschair_l_temp[2];
+
+extern unsigned char name[10];
 
 extern unsigned char   rx0[3];
 extern unsigned char   rx1[3];
@@ -251,6 +262,38 @@ void init_window(unsigned short line)
 
 void flight_window(unsigned short line)
 {
+
+
+
+   if(name_l<line && line<name_l+9)
+    {
+      unsigned char i;
+      temp = line - name_l;
+
+      delay(name_delay);
+      
+      SPI0DAT = letters[name[0]+(temp)];
+      SPI0DAT = letters[name[1]+(temp)];
+      SPI0DAT = letters[name[2]+(temp)];
+      SPI0DAT = letters[name[3]+(temp)];
+      SPI0DAT = letters[name[4]+(temp)];
+      SPI0DAT = letters[name[5]+(temp)];
+      delay(1);
+      SPI0DAT = letters[name[6]+(temp)];
+      delay(1);
+      SPI0DAT = letters[name[7]+(temp)];
+      delay(1);
+      SPI0DAT = letters[name[8]+(temp)];
+      delay(1);
+      SPI0DAT = letters[name[9]+(temp)];
+    }
+
+  if(crosschair_l<line && line<crosschair_l+9)
+    {
+      temp = line - crosschair_l;
+      delay(87);
+      SPI0DAT = numbers[112+(temp)];
+    }
     if(low_bat_l<line && line<low_bat_l+9)
     {
         temp = line - low_bat_l;
@@ -1756,7 +1799,144 @@ void display_window(unsigned short line)
 		case 147:
 		case 148:
 			temp = line - 141;
-			if (index == 3)
+			if (index == 3){
+				delay(30);
+				SPI0DAT = numbers[ 96+(temp)];
+			}else{
+				delay(37);
+			}
+            SPI0DAT = letters[0+(temp)];
+            SPI0DAT = letters[_n+(temp)];
+            SPI0DAT = letters[_a+(temp)];
+            SPI0DAT = letters[_m+(temp)];
+            delay(1);
+            SPI0DAT = letters[_e+(temp)];
+            delay(1);
+            SPI0DAT = numbers[ 104+(temp)];
+
+            delay(25);
+            SPI0DAT = numbers[name_l_temp[0]+(temp)];
+            SPI0DAT = numbers[name_l_temp[1]+(temp)];
+            delay(1);
+			break;
+            
+		case 156:
+		case 157:
+		case 158:
+		case 159:
+		case 160:
+		case 161:
+		case 162:
+		case 163:
+
+			temp = line - 156;
+			if (index == 4){
+				delay(30);
+				SPI0DAT = numbers[ 96+(temp)];
+			}else{
+				delay(37);
+			}
+            SPI0DAT = letters[0+(temp)];
+            SPI0DAT = letters[_d+(temp)];
+            SPI0DAT = letters[_i+(temp)];
+            SPI0DAT = letters[_s+(temp)];
+            delay(1);
+            SPI0DAT = letters[_p+(temp)];
+            delay(1);
+            SPI0DAT = numbers[88+(temp)];
+            SPI0DAT = letters[_n+(temp)];
+	    delay(1);
+            SPI0DAT = letters[_a+(temp)];
+            SPI0DAT = letters[_m+(temp)];
+	    delay(1);
+            SPI0DAT = letters[_e+(temp)];
+            SPI0DAT = numbers[ 104+(temp)];
+
+            delay(25);
+	    SPI0DAT = letters[ (display_name?_y:_n)+(temp)];
+            delay(1);
+	    break;
+
+	case 171:
+	case 172:
+	case 173:
+	case 174:
+	case 175:
+	case 176:
+	case 177:
+	case 178:
+			temp = line - 171;
+			if (index == 5){
+				delay(30);
+				SPI0DAT = numbers[ 96+(temp)];
+			}else{
+				delay(37);
+			}
+            SPI0DAT = letters[0+(temp)];
+            SPI0DAT = letters[_c+(temp)];
+            SPI0DAT = letters[_r+(temp)];
+            SPI0DAT = letters[_o+(temp)];
+            delay(1);
+            SPI0DAT = letters[_s+(temp)];
+            delay(1);
+            SPI0DAT = letters[_s+(temp)];	    
+	    delay(1);
+            SPI0DAT = numbers[ 104+(temp)];
+
+            delay(25);
+            SPI0DAT = numbers[crosschair_l_temp[0]+(temp)];
+            SPI0DAT = numbers[crosschair_l_temp[1]+(temp)];
+            delay(1);
+			break;
+            
+	case 186:
+	case 187:
+	case 188:
+	case 189:
+	case 190:
+	case 191:
+	case 192:
+	case 193:
+
+			temp = line - 186;
+			if (index == 6){
+				delay(30);
+				SPI0DAT = numbers[ 96+(temp)];
+			}else{
+				delay(37);
+			}
+            SPI0DAT = letters[0+(temp)];
+            SPI0DAT = letters[_d+(temp)];
+            SPI0DAT = letters[_i+(temp)];
+            SPI0DAT = letters[_s+(temp)];
+            delay(1);
+            SPI0DAT = letters[_p+(temp)];
+            delay(1);
+            SPI0DAT = numbers[88+(temp)];
+            SPI0DAT = letters[_c+(temp)];
+	    delay(1);
+            SPI0DAT = letters[_r+(temp)];
+            SPI0DAT = letters[_o+(temp)];
+	    delay(1);
+            SPI0DAT = letters[_s+(temp)];
+            SPI0DAT = letters[_s+(temp)];
+	    delay(1);
+            SPI0DAT = numbers[ 104+(temp)];
+
+            delay(25);
+	    SPI0DAT = letters[ (display_crosschair?_y:_n)+(temp)];
+            delay(1);
+	  break;
+	case 201:
+	case 202:
+	case 203:
+	case 204:
+	case 205:
+	case 206:
+	case 207:
+	case 208:
+			temp = line - 201;
+			if (index == 7)
 			{
 					delay(28);
 					SPI0DAT = numbers[ 96+(temp)];
@@ -1782,18 +1962,17 @@ void display_window(unsigned short line)
             SPI0DAT =numbers[88+(temp)];
             SPI0DAT = numbers[low_battery[1]+(temp)];
             delay(1);
-			break;
-            
-		case 156:
-		case 157:
-		case 158:
-		case 159:
-		case 160:
-		case 161:
-		case 162:
-		case 163:
-			temp = line - 156;
-			if (index == 4)
+	  break;
+	case 216:
+	case 217:
+	case 218:
+	case 219:
+	case 220:
+	case 221:
+	case 222:
+	case 223:
+			temp = line - 216;
+			if (index == 8)
 			{
 					delay(28);
 					SPI0DAT = numbers[ 96+(temp)];
@@ -1808,7 +1987,7 @@ void display_window(unsigned short line)
             SPI0DAT = letters[_c+(temp)];
             delay(1);
             SPI0DAT = letters[_k+(temp)];
-            
+	  break;
 //        case 171:
 //		case 172:
 //		case 173:

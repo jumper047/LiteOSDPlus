@@ -45,6 +45,8 @@ unsigned char  vtx_power_index =0;
 unsigned char  channel_index = 0;
 unsigned char main_version = 0;
 unsigned char modify_version = 0;
+unsigned char display_crosschair=0;
+unsigned char display_name=0;
 
 unsigned short rates = 0;
 unsigned short rates_yaw = 0;
@@ -57,12 +59,19 @@ unsigned short low_bat_l=160;
 unsigned short mode_l=230;
 unsigned short vol_l=240;
 unsigned short turtle_l=180;
+unsigned short crosschair_l=130;
+unsigned short name_l = 30;
+
+unsigned char name_delay = 56;
 
 unsigned char low_bat_l_temp[2]={0};
 unsigned char mode_l_temp[2]={0};
 unsigned char vol_l_temp[2]={0};
 unsigned char turtle_l_temp[2]={0};
 unsigned char low_battery[2]={24,16};
+unsigned char name_l_temp[2]={0};
+unsigned char crosschair_l_temp[2]={0};
+unsigned char name[10]={0x10, 0x10, 0x10};
 
 extern unsigned char UART_Buffer[12];
 extern void delay(unsigned char n);
@@ -106,6 +115,8 @@ void display_window_data()
     mode_l = UART_Buffer[3] *10 ;
     vol_l = UART_Buffer[4] *10 ;
     turtle_l = UART_Buffer[6] * 10;
+    name_l = UART_Buffer[8] * 10;
+    crosschair_l = UART_Buffer[9] * 10;
     
     low_bat_l_temp[0] = (UART_Buffer[2]/10) << 3;
     low_bat_l_temp[1] = (UART_Buffer[2]%10) << 3;
@@ -121,6 +132,16 @@ void display_window_data()
 
     low_battery[0] = (UART_Buffer[7]/10) << 3;
     low_battery[1] = (UART_Buffer[7]%10) << 3;
+
+    name_l_temp[0] = (UART_Buffer[8]/10) << 3;
+    name_l_temp[1] = (UART_Buffer[8]%10) << 3;
+
+    crosschair_l_temp[0] = (UART_Buffer[9]/10) << 3;
+    crosschair_l_temp[1] = (UART_Buffer[9]%10) << 3;
+
+    display_name = (UART_Buffer[9]) & 0x1;
+    display_crosschair = ((UART_Buffer[7]/10) >> 1 ) & 0x1;
+
 }
 
 void flight_window_data()
@@ -269,6 +290,20 @@ void sa_window_data()
     vtx_power_index = UART_Buffer[6];
 }
 
+void name_data()
+{
+  unsigned char symbols;
+  unsigned char i;
+  for(i=0;i<10;i++){
+    name[i] = UART_Buffer[i+1];
+    if (name[i] != 0) {
+      symbols = i;
+    }
+  }
+  name_delay = 87 - 5 * symbols;
+  
+}
+
 
 
 void delayS(unsigned char n)
@@ -322,6 +357,10 @@ void main (void)
             case 7:
                 rates_window_data();
                 break;
+	case 8:
+	case 9:
+	  name_data();
+	  break;
             default:
                 break;
         }
