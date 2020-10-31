@@ -35,7 +35,7 @@ extern unsigned char main_version;
 extern unsigned char modify_version;
 extern unsigned char low_line_l;
 extern unsigned char low_line_h;
-extern unsigned char display_crosschair;
+extern unsigned char display_crosshair;
 extern unsigned char display_name;
 extern unsigned char display_init_window;
 extern unsigned char name_delay;
@@ -45,7 +45,7 @@ extern unsigned short mode_l;
 extern unsigned short vol_l;
 extern unsigned short turtle_l;
 extern unsigned short name_l;
-extern unsigned short crosschair_l;
+extern unsigned short crosshair_l;
 
 
 
@@ -56,7 +56,7 @@ extern unsigned char turtle_l_temp[2];
 extern unsigned char low_battery[2];
 extern unsigned char low_rssi[2];
 extern unsigned char name_l_temp[2];
-extern unsigned char crosschair_l_temp[2];
+extern unsigned char crosshair_l_temp[2];
 
 extern unsigned char name[10];
 
@@ -288,9 +288,9 @@ void flight_window(unsigned short line)
       SPI0DAT = letters[name[9]+(temp)];
     }
 
-  if(display_crosschair && crosschair_l<line && line<crosschair_l+9)
+  if(display_crosshair && crosshair_l<line && line<crosshair_l+9)
     {
-      temp = line - crosschair_l;
+      temp = line - crosshair_l;
       delay(87);
       SPI0DAT = numbers[112+(temp)];
     }
@@ -1929,7 +1929,7 @@ void display_window(unsigned short line)
             SPI0DAT = numbers[ 104+(temp)];
 
             delay(25);
-	    SPI0DAT = letters[ (display_crosschair?_y:_n)+(temp)];
+	    SPI0DAT = letters[ (display_crosshair?_y:_n)+(temp)];
             delay(1);
 	    break;
 
@@ -2247,8 +2247,8 @@ void disposition_window(unsigned short line)
             SPI0DAT = numbers[ 104+(temp)];
 
             delay(25);
-            SPI0DAT = numbers[crosschair_l_temp[0]+(temp)];
-            SPI0DAT = numbers[crosschair_l_temp[1]+(temp)];
+            SPI0DAT = numbers[crosshair_l_temp[0]+(temp)];
+            SPI0DAT = numbers[crosshair_l_temp[1]+(temp)];
             delay(1);
 	    break;
 

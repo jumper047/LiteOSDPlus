@@ -47,7 +47,7 @@ unsigned char  vtx_power_index =0;
 unsigned char  channel_index = 0;
 unsigned char main_version = 0;
 unsigned char modify_version = 0;
-unsigned char display_crosschair=0;
+unsigned char display_crosshair=0;
 unsigned char display_name=0;
 unsigned char display_init_window=1;
 unsigned char hide_osd=0;
@@ -63,7 +63,7 @@ unsigned short low_bat_l=160;
 unsigned short mode_l=230;
 unsigned short vol_l=240;
 unsigned short turtle_l=180;
-unsigned short crosschair_l=130;
+unsigned short crosshair_l=130;
 unsigned short name_l = 30;
 
 unsigned char name_delay = 56;
@@ -75,7 +75,7 @@ unsigned char turtle_l_temp[2]={0};
 unsigned char low_battery[2]={24,16};
 unsigned char low_rssi[2]={0,0};
 unsigned char name_l_temp[2]={0};
-unsigned char crosschair_l_temp[2]={0};
+unsigned char crosshair_l_temp[2]={0};
 unsigned char name[10]={0};
 
 extern unsigned char UART_Buffer[12];
@@ -117,7 +117,7 @@ void display_window_data()
     index = UART_Buffer[1];
     
     display_name = (UART_Buffer[2]) & 0x1;
-    display_crosschair = (UART_Buffer[3]) & 0x1;
+    display_crosshair = (UART_Buffer[3]) & 0x1;
 
     low_battery[0] = (UART_Buffer[4]/10) << 3;
     low_battery[1] = (UART_Buffer[4]%10) << 3;
@@ -286,7 +286,7 @@ void disposition_window_data()
     vol_l = UART_Buffer[4] *10 ;
     turtle_l = UART_Buffer[6] * 10;
     name_l = UART_Buffer[7] * 10;
-    crosschair_l = UART_Buffer[8] * 10;
+    crosshair_l = UART_Buffer[8] * 10;
     
     low_bat_l_temp[0] = (UART_Buffer[2]/10) << 3;
     low_bat_l_temp[1] = (UART_Buffer[2]%10) << 3;
@@ -303,8 +303,8 @@ void disposition_window_data()
     name_l_temp[0] = (UART_Buffer[7]/10) << 3;
     name_l_temp[1] = (UART_Buffer[7]%10) << 3;
 
-    crosschair_l_temp[0] = (UART_Buffer[8]/10) << 3;
-    crosschair_l_temp[1] = (UART_Buffer[8]%10) << 3;
+    crosshair_l_temp[0] = (UART_Buffer[8]/10) << 3;
+    crosshair_l_temp[1] = (UART_Buffer[8]%10) << 3;
 }
 
 void name_data()
