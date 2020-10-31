@@ -40,13 +40,14 @@ extern unsigned char display_name;
 extern unsigned char display_init_window;
 extern unsigned char name_delay;
 extern unsigned char hide_osd;
+extern unsigned char led_color;
+
 extern unsigned short low_bat_l;
 extern unsigned short mode_l;
 extern unsigned short vol_l;
 extern unsigned short turtle_l;
 extern unsigned short name_l;
 extern unsigned short crosshair_l;
-
 
 
 extern unsigned char low_bat_l_temp[2];
@@ -1307,7 +1308,7 @@ void motor_window(unsigned short line)
 				  SPI0DAT = letters[ _t+(temp)];
 				  SPI0DAT = letters[ _a+(temp)];
 				  break;
-				case 7:
+				case 8:
 				  SPI0DAT = letters[_r+(temp)];
 				  SPI0DAT = letters[ _a+(temp)];
 				  SPI0DAT = letters[ _i+(temp)];
