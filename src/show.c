@@ -37,6 +37,7 @@ extern unsigned char low_line_l;
 extern unsigned char low_line_h;
 extern unsigned char display_crosschair;
 extern unsigned char display_name;
+extern unsigned char display_init_window;
 extern unsigned char name_delay;
 
 extern unsigned short low_bat_l;
@@ -218,9 +219,9 @@ void delay(unsigned char n)
 	for(i=0;i<n;i++);
 }
 
-
 void init_window(unsigned short line)
 {
+  if(display_init_window){
      if(show_centerline)
     {
         temp = line - 120;
@@ -259,13 +260,13 @@ void init_window(unsigned short line)
         delay(2);
         SPI0DAT = letters[ _v+(temp)];
     }
-    
+    }
 }
 
 void flight_window(unsigned short line)
 {
 
-   if(name_l<line && line<name_l+9)
+   if(display_name && name_l<line && line<name_l+9)
     {
       temp = line - name_l;
 
@@ -287,7 +288,7 @@ void flight_window(unsigned short line)
       SPI0DAT = letters[name[9]+(temp)];
     }
 
-  if(crosschair_l<line && line<crosschair_l+9)
+  if(display_crosschair && crosschair_l<line && line<crosschair_l+9)
     {
       temp = line - crosschair_l;
       delay(87);
@@ -414,10 +415,12 @@ void flight_window(unsigned short line)
                 break;	
           }
         } else {
-	  delay(5);
+	  delay(6);
 	  SPI0DAT = numbers[152 + (temp)];
+	  SPI0DAT = letters[0 + (temp)];
 	  SPI0DAT = numbers[rssi_value[0] + (temp)];
 	  SPI0DAT = numbers[rssi_value[1] + (temp)];
+	  delay(2);
 	}
 
         switch (flymode)
@@ -476,14 +479,14 @@ void flight_window(unsigned short line)
     if(vol_l<line && line<vol_l+9)
     {
         temp = line - vol_l;
-        delay(5);
-        SPI0DAT =letters[ _v+(temp)];
+        delay(2);
         SPI0DAT =numbers[VOT_value[0]+(temp)];
         SPI0DAT =numbers[88+(temp)];
         SPI0DAT =numbers[VOT_value[1]+(temp)];
         SPI0DAT =numbers[VOT_value[2]+(temp)];
+        SPI0DAT =letters[ _v+(temp)];
         
-        delay(125);
+        delay(115);
         SPI0DAT =numbers[ min_text[0]+(temp)];
         SPI0DAT =numbers[ min_text[1]+(temp)];
         SPI0DAT =numbers[104+(temp)];
@@ -1755,6 +1758,8 @@ void display_window(unsigned short line)
             SPI0DAT = letters[_o+(temp)];
 	    delay(1);
             SPI0DAT = letters[_n+(temp)];
+	    delay(32);
+	    SPI0DAT = numbers[ 96+(temp)];
 			break;
 
 		case 111:

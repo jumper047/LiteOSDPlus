@@ -48,6 +48,7 @@ unsigned char main_version = 0;
 unsigned char modify_version = 0;
 unsigned char display_crosschair=0;
 unsigned char display_name=0;
+unsigned char display_init_window=1;
 
 unsigned short rates = 0;
 unsigned short rates_yaw = 0;
@@ -306,13 +307,14 @@ void name_data()
 {
   unsigned char symbols;
   unsigned char i;
+  display_init_window=0;
   for(i=0;i<10;i++){
     name[i] = UART_Buffer[i+1];
     if (name[i] != 0) {
       symbols = i;
     }
   }
-  name_delay = 87 - 5 * symbols;
+  name_delay = 87 - 2 * symbols;
   
 }
 
