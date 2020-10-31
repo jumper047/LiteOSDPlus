@@ -31,6 +31,7 @@ unsigned char  m1 = 0;
 unsigned char  m2 = 0;
 unsigned char  m3 = 0;
 unsigned char  m4 = 0;
+unsigned char led_color = 0;
 unsigned char   kp[9] = {0};
 unsigned char   ki[9] = {0};
 unsigned char   kd[9] = {0};
@@ -233,6 +234,7 @@ void motor_window_data()
     m2 = UART_Buffer[3]<< 3;
     m3 = UART_Buffer[4];
     m4 = UART_Buffer[5];
+    led_color = UART_Buffer[6];
 }
 
 

@@ -1210,10 +1210,102 @@ void motor_window(unsigned short line)
 				SPI0DAT = letters[ (m3?_o:_f)+(temp)];
 		}
 
-		if(show_m4line)
+		if(145 < line && line < 155)
 		{
 				temp = line - 146;
 				if (index == 3)
+				{
+						delay(39);
+						SPI0DAT = numbers[ 96+(temp)];
+				}
+				else
+				{
+						delay(42);
+				}
+				SPI0DAT = letters[0+(temp)];
+				SPI0DAT = letters[_l+(temp)];
+				SPI0DAT = letters[ _e+(temp)];
+				SPI0DAT = letters[ _d+(temp)];
+				SPI0DAT = letters[ 0+(temp)];
+				SPI0DAT = letters[_c+(temp)];
+				SPI0DAT = letters[ _o+(temp)];
+				SPI0DAT = letters[ _l+(temp)];
+				SPI0DAT = letters[_o+(temp)];
+				SPI0DAT = letters[_r+(temp)];
+				delay(1);
+				SPI0DAT = letters[ 0+(temp)];
+				delay(1);
+				switch(led_color){
+				case 0:
+				  SPI0DAT = letters[_w+(temp)];
+				  SPI0DAT = letters[ _h+(temp)];
+				  SPI0DAT = letters[ _i+(temp)];
+				  SPI0DAT = letters[ _t+(temp)];
+				  SPI0DAT = letters[_e+(temp)];
+				  break;
+
+				case 1:
+				  SPI0DAT = letters[_p+(temp)];
+				  SPI0DAT = letters[_i+(temp)];
+				  SPI0DAT = letters[_n+(temp)];
+				  SPI0DAT = letters[ _k+(temp)];
+				  break;
+
+				case 2:
+				  SPI0DAT = letters[_r+(temp)];
+				  SPI0DAT = letters[ _e+(temp)];
+				  SPI0DAT = letters[ _d+(temp)];
+				  break;
+
+				case 3:
+				  SPI0DAT = letters[_o+(temp)];
+				  SPI0DAT = letters[ _r+(temp)];
+				  SPI0DAT = letters[ _a+(temp)];
+				  SPI0DAT = letters[ _n+(temp)];
+				  SPI0DAT = letters[_g+(temp)];
+				  SPI0DAT = letters[ _e+(temp)];
+				  break;
+
+				case 4:
+				  SPI0DAT = letters[_y+(temp)];
+				  SPI0DAT = letters[ _e+(temp)];
+				  SPI0DAT = letters[ _l+(temp)];
+				  SPI0DAT = letters[ _l+(temp)];
+				  SPI0DAT = letters[_o+(temp)];
+				  SPI0DAT = letters[ _w+(temp)];
+				  break;
+
+				case 5:
+				  SPI0DAT = letters[_g+(temp)];
+				  SPI0DAT = letters[ _r+(temp)];
+				  SPI0DAT = letters[ _e+(temp)];
+				  SPI0DAT = letters[ _e+(temp)];
+				  SPI0DAT = letters[_n+(temp)];
+				  break;
+
+				case 6:
+				  SPI0DAT = letters[_c+(temp)];
+				  SPI0DAT = letters[ _y+(temp)];
+				  SPI0DAT = letters[ _a+(temp)];
+				  SPI0DAT = letters[ _n+(temp)];
+				  break;
+
+				case 7:
+				  SPI0DAT = letters[_m+(temp)];
+				  SPI0DAT = letters[ _a+(temp)];
+				  SPI0DAT = letters[ _g+(temp)];
+				  SPI0DAT = letters[ _e+(temp)];
+				  SPI0DAT = letters[_n+(temp)];
+				  SPI0DAT = letters[ _t+(temp)];
+				  SPI0DAT = letters[ _a+(temp)];
+				  break;
+				}
+
+		}
+		if(165 < line && line < 175)
+		{
+				temp = line - 166;
+				if (index == 4)
 				{
 						delay(37);
 						SPI0DAT = numbers[ 96+(temp)];
@@ -1233,10 +1325,10 @@ void motor_window(unsigned short line)
 				delay(1);
 				SPI0DAT = letters[ (m4?_y:_n)+(temp)];
 		}
-		if(show_motor_exitline)
+		if(185 < line && line < 195)
 		{
-				temp = line - 166;
-				if (index == 4)
+				temp = line - 186;
+				if (index == 5)
 				{
 						delay(36);
 						SPI0DAT = numbers[ 96+(temp)];
