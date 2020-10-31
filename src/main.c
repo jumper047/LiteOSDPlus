@@ -50,6 +50,7 @@ unsigned char modify_version = 0;
 unsigned char display_crosschair=0;
 unsigned char display_name=0;
 unsigned char display_init_window=1;
+unsigned char hide_osd=0;
 
 unsigned short rates = 0;
 unsigned short rates_yaw = 0;
@@ -128,6 +129,7 @@ void display_window_data()
 void flight_window_data()
 {
 	lock = UART_Buffer[1];
+	hide_osd = UART_Buffer[2];
 
     Vol = (UART_Buffer[3] << 8) + UART_Buffer[4];
     VOT_value[0] = (Vol/100) << 3;

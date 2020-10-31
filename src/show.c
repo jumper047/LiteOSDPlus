@@ -39,7 +39,7 @@ extern unsigned char display_crosschair;
 extern unsigned char display_name;
 extern unsigned char display_init_window;
 extern unsigned char name_delay;
-
+extern unsigned char hide_osd;
 extern unsigned short low_bat_l;
 extern unsigned short mode_l;
 extern unsigned short vol_l;
@@ -264,7 +264,7 @@ void init_window(unsigned short line)
 }
 
 void flight_window(unsigned short line)
-{
+{if(!hideosd){
 
    if(display_name && name_l<line && line<name_l+9)
     {
@@ -495,7 +495,15 @@ void flight_window(unsigned short line)
         
     }
 
-}
+  } else {
+        if(vol_l<line && line<vol_l+9)
+    {
+        temp = line - vol_l;
+        delay(2);
+        SPI0DAT =letters[0+(temp)];
+        
+    }
+  }}
 
 void set_window(unsigned short line)
 {
