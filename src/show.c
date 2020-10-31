@@ -1205,20 +1205,27 @@ void motor_window(unsigned short line)
 				SPI0DAT = letters[ _e+(temp)];
 				SPI0DAT = letters[ _d+(temp)];
 				SPI0DAT = letters[ 0+(temp)];
+				delay(1);
 				SPI0DAT = letters[_c+(temp)];
+				delay(1);
 				SPI0DAT = letters[ _o+(temp)];
+				delay(1);
 				SPI0DAT = letters[ _l+(temp)];
 				SPI0DAT = letters[_o+(temp)];
+				delay(1);
 				SPI0DAT = letters[_r+(temp)];
 				delay(1);
 				SPI0DAT = letters[ 0+(temp)];
-				delay(1);
+				SPI0DAT = numbers[ 104+(temp)];
+				delay(20);
 				switch(led_color){
 				case 0:
 				  SPI0DAT = letters[_w+(temp)];
 				  SPI0DAT = letters[ _h+(temp)];
 				  SPI0DAT = letters[ _i+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _t+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[_e+(temp)];
 				  break;
 
@@ -1226,6 +1233,7 @@ void motor_window(unsigned short line)
 				  SPI0DAT = letters[_p+(temp)];
 				  SPI0DAT = letters[_i+(temp)];
 				  SPI0DAT = letters[_n+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _k+(temp)];
 				  break;
 
@@ -1239,8 +1247,11 @@ void motor_window(unsigned short line)
 				  SPI0DAT = letters[_o+(temp)];
 				  SPI0DAT = letters[ _r+(temp)];
 				  SPI0DAT = letters[ _a+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _n+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[_g+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _e+(temp)];
 				  break;
 
@@ -1248,8 +1259,11 @@ void motor_window(unsigned short line)
 				  SPI0DAT = letters[_y+(temp)];
 				  SPI0DAT = letters[ _e+(temp)];
 				  SPI0DAT = letters[ _l+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _l+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[_o+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _w+(temp)];
 				  break;
 
@@ -1257,7 +1271,9 @@ void motor_window(unsigned short line)
 				  SPI0DAT = letters[_g+(temp)];
 				  SPI0DAT = letters[ _r+(temp)];
 				  SPI0DAT = letters[ _e+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _e+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[_n+(temp)];
 				  break;
 
@@ -1265,6 +1281,7 @@ void motor_window(unsigned short line)
 				  SPI0DAT = letters[_c+(temp)];
 				  SPI0DAT = letters[ _y+(temp)];
 				  SPI0DAT = letters[ _a+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _n+(temp)];
 				  break;
 
@@ -1272,18 +1289,26 @@ void motor_window(unsigned short line)
 				  SPI0DAT = letters[_m+(temp)];
 				  SPI0DAT = letters[ _a+(temp)];
 				  SPI0DAT = letters[ _g+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _e+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[_n+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _t+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _a+(temp)];
 				  break;
 				case 8:
 				  SPI0DAT = letters[_r+(temp)];
 				  SPI0DAT = letters[ _a+(temp)];
 				  SPI0DAT = letters[ _i+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _n+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[_b+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _o+(temp)];
+				  delay(1);
 				  SPI0DAT = letters[ _w+(temp)];
 				  break;
 
