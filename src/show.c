@@ -264,7 +264,7 @@ void init_window(unsigned short line)
 }
 
 void flight_window(unsigned short line)
-{if(!hideosd){
+{if(!hide_osd){
 
    if(display_name && name_l<line && line<name_l+9)
     {
