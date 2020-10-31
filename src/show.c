@@ -1307,6 +1307,16 @@ void motor_window(unsigned short line)
 				  SPI0DAT = letters[ _t+(temp)];
 				  SPI0DAT = letters[ _a+(temp)];
 				  break;
+				case 7:
+				  SPI0DAT = letters[_r+(temp)];
+				  SPI0DAT = letters[ _a+(temp)];
+				  SPI0DAT = letters[ _i+(temp)];
+				  SPI0DAT = letters[ _n+(temp)];
+				  SPI0DAT = letters[_b+(temp)];
+				  SPI0DAT = letters[ _o+(temp)];
+				  SPI0DAT = letters[ _w+(temp)];
+				  break;
+
 				}
 
 		}
