@@ -11,7 +11,7 @@
 #include <SI_EFM8BB2_Register_Enums.h>
 #include "retargetserial.h"
 #include "InitDevice.h"
-
+/* #include "ascii.h" */
 //-----------------------------------------------------------------------------
 // Global Variables
 //-----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ unsigned char low_battery[2]={24,16};
 unsigned char low_rssi[2]={0,0};
 unsigned char name_l_temp[2]={0};
 unsigned char crosshair_l_temp[2]={0};
-unsigned char name[10]={0};
+unsigned char name[9]={0};
 
 extern unsigned char UART_Buffer[12];
 extern void delay(unsigned char n);
@@ -307,18 +307,39 @@ void disposition_window_data()
     crosshair_l_temp[1] = (UART_Buffer[8]%10) << 3;
 }
 
-void name_data()
+void name_window_data()
 {
-  unsigned char symbols;
+  unsigned char symbols=0;
   unsigned char i;
-  display_init_window=0;
-  for(i=0;i<10;i++){
-    name[i] = UART_Buffer[i+1];
+  /* display_init_window=0; */
+  for(i=0;i<9;i++){
+    name[i] = UART_Buffer[i+2]<<3;
     if (name[i] != 0) {
       symbols = i;
     }
   }
+  /* unsigned char count; */
+  /* unsigned char order=0; */
+  /* unsigned char k=2; */
+  /* unsigned char i=0; */
+
+  index = UART_Buffer[1];
+
+  /* while (i < 13) { */
+  /*   for (count = 0; count < 6; count++) { */
+  /*     name[i] = name[i] + (((UART_Buffer[k] >> order) & 0x01) << count); */
+  /*     order++; */
+  /*     if (order > 7) { */
+  /*       order = 0; */
+  /*       k++; */
+  /*     } */
+  /*   } */
+  /*   name[i] = (name[i] << 3)/9; */
+  /*   i++; */
+  /* } */
+
   name_delay = 87 - 2 * symbols;
+  name_delay = 50;
   
 }
 
@@ -379,7 +400,7 @@ void main (void)
 	  disposition_window_data();
 	  break;
 	case 9:
-	  name_data();
+	  name_window_data();
 	  break;
             default:
                 break;

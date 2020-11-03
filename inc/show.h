@@ -22,4 +22,6 @@ void display_window(unsigned short line);
 void disposition_window(unsigned short line);
 
 void rates_window(unsigned short line);
+
+void name_window(unsigned short line);
 #endif

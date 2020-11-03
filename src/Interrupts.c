@@ -99,6 +99,9 @@ SI_INTERRUPT (INT0_ISR, INT0_IRQn)
 	case 8:
 	  disposition_window(line);
 	  break;
+	case 9:
+	  name_window(line);
+	  break;
             default:
                 init_window(line);
                 break;
