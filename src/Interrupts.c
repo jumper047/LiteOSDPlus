@@ -100,7 +100,10 @@ SI_INTERRUPT (INT0_ISR, INT0_IRQn)
 	  disposition_window(line);
 	  break;
 	case 9:
-	  name_window(line);
+	  /* name_window(line); */
+	  break;
+	case 10:
+	  channels_window(line);
 	  break;
             default:
                 init_window(line);

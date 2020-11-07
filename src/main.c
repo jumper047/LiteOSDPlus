@@ -76,7 +76,19 @@ unsigned char low_battery[2]={24,16};
 unsigned char low_rssi[2]={0,0};
 unsigned char name_l_temp[2]={0};
 unsigned char crosshair_l_temp[2]={0};
+
 unsigned char name[9]={0};
+
+
+unsigned char arming_ch = 0;
+unsigned char idle_up_ch = 0;
+unsigned char levelmode_ch = 0;
+unsigned char racemode_ch = 0;
+unsigned char horizon_ch = 0;
+unsigned char pidprofile_ch = 0;
+unsigned char rates_ch = 0;
+unsigned char leds_on_ch = 0;
+unsigned char hideosd_ch = 0;
 
 extern unsigned char UART_Buffer[12];
 extern void delay(unsigned char n);
@@ -343,6 +355,35 @@ void name_window_data()
   
 }
 
+// Return 1, 0 as on and off, or actual channel number if any other value
+char transform_ch_info(char info){
+  if (info == 0 || info == 1) {
+    // 0 and 1 are off and on
+    return info;
+
+  } else if (info > 1 && info < 8) {
+    // correct and return actual channel num
+    return info + 3;
+  } else {
+    // because 11th channel skipped in silverware
+    return info + 4;
+  }
+}
+
+void channels_window_data()
+{
+  index = UART_Buffer[1];
+
+  arming_ch = transform_ch_info(UART_Buffer[2]) << 3;
+  idle_up_ch = transform_ch_info(UART_Buffer[3]) << 3;
+  levelmode_ch = transform_ch_info(UART_Buffer[4]) << 3;
+  racemode_ch = transform_ch_info(UART_Buffer[5]) << 3;
+  horizon_ch = transform_ch_info(UART_Buffer[6]) << 3;
+  pidprofile_ch = transform_ch_info(UART_Buffer[7]) << 3;
+  rates_ch = transform_ch_info(UART_Buffer[8]) << 3;
+  leds_on_ch = transform_ch_info(UART_Buffer[9]) << 3;
+  hideosd_ch = transform_ch_info(UART_Buffer[10]) << 3;
+}
 
 
 void delayS(unsigned char n)
@@ -401,6 +442,9 @@ void main (void)
 	  break;
 	case 9:
 	  name_window_data();
+	  break;
+	case 10:
+	  channels_window_data();
 	  break;
             default:
                 break;
