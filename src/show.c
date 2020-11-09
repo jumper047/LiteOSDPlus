@@ -1091,7 +1091,7 @@ void motor_window(unsigned short line)
 				temp = line - 101;
 				if (index == 0)
 				{
-						delay(42);
+						delay(37);
 						SPI0DAT = numbers[ 96+(temp)];
 				}
 				else
@@ -1118,7 +1118,7 @@ void motor_window(unsigned short line)
 				temp = line - 116;
 				if (index == 1)
 				{
-						delay(40);
+						delay(35);
 						SPI0DAT = numbers[ 96+(temp)];
 				}
 				else
@@ -1143,7 +1143,7 @@ void motor_window(unsigned short line)
 				temp = line - 131;
 				if (index == 2)
 				{
-						delay(39);
+						delay(34);
 						SPI0DAT = numbers[ 96+(temp)];
 				}
 				else
@@ -1166,12 +1166,12 @@ void motor_window(unsigned short line)
 				temp = line - 146;
 				if (index == 3)
 				{
-						delay(39);
+						delay(30);
 						SPI0DAT = numbers[ 96+(temp)];
 				}
 				else
 				{
-						delay(42);
+						delay(38);
 				}
 				SPI0DAT = letters[0+(temp)];
 				SPI0DAT = letters[_l+(temp)];
@@ -1189,6 +1189,7 @@ void motor_window(unsigned short line)
 				SPI0DAT = letters[_r+(temp)];
 				delay(1);
 				SPI0DAT = letters[ 0+(temp)];
+				delay(1);
 				SPI0DAT = numbers[ 104+(temp)];
 				delay(20);
 				switch(led_color){
@@ -1288,17 +1289,17 @@ void motor_window(unsigned short line)
 				}
 
 		}
-		if(165 < line && line < 175)
+		if(160 < line && line < 169)
 		{
-				temp = line - 166;
+				temp = line - 161;
 				if (index == 4)
 				{
-						delay(37);
+						delay(28);
 						SPI0DAT = numbers[ 96+(temp)];
 				}
 				else
 				{
-						delay(40);
+						delay(36);
 				}
 				SPI0DAT = letters[0+(temp)];
 				SPI0DAT = letters[_t+(temp)];
@@ -1311,17 +1312,17 @@ void motor_window(unsigned short line)
 				delay(1);
 				SPI0DAT = letters[ (m4?_y:_n)+(temp)];
 		}
-		if(185 < line && line < 195)
+		if(175 < line && line < 185)
 		{
-				temp = line - 186;
+				temp = line - 176;
 				if (index == 5)
 				{
-						delay(36);
+						delay(26);
 						SPI0DAT = numbers[ 96+(temp)];
 				}
 				else
 				{
-						delay(40);
+						delay(33);
 				}
 				SPI0DAT = letters[0+(temp)];
 				SPI0DAT = letters[_c+(temp)];
@@ -1335,20 +1336,22 @@ void motor_window(unsigned short line)
 				delay(1);
 				SPI0DAT = letters[_l+(temp)];
 				delay(1);
-				SPI0DAT = letters[_s+(temp)];				
+				SPI0DAT = letters[_s+(temp)];
+				delay(50);
+				SPI0DAT = numbers[ 96+(temp)];				
 
 		}
-		if(205 < line && line < 215)
+		if(190 < line && line < 199)
 		{
-				temp = line - 206;
+				temp = line - 191;
 				if (index == 6)
 				{
-						delay(36);
+						delay(27);
 						SPI0DAT = numbers[ 96+(temp)];
 				}
 				else
 				{
-						delay(40);
+						delay(34);
 				}
 				SPI0DAT = letters[0+(temp)];
 				SPI0DAT = letters[_b+(temp)];
@@ -1846,7 +1849,9 @@ void display_window(unsigned short line)
             SPI0DAT = letters[_m+(temp)];
 	    delay(1);
             SPI0DAT = letters[_e+(temp)];
+	    delay(1);
             SPI0DAT = letters[0+(temp)];
+	    delay(40);
 	    SPI0DAT = numbers[ 96+(temp)];
 	    break;
 
@@ -2390,11 +2395,11 @@ void channels_window(unsigned short line)
 		case 148:
 			temp = line - 141;
 			if (index == 3){
-				delay(31);
+				delay(30);
 				SPI0DAT = numbers[ 96+(temp)];
 
 			}else{
-				delay(38);
+				delay(37);
 			}
             SPI0DAT = letters[0+(temp)];
             SPI0DAT = letters[_r+(temp)];
@@ -2427,11 +2432,11 @@ void channels_window(unsigned short line)
 		case 163:
 			temp = line - 156;
 			if (index == 4){
-				delay(31);
+				delay(29);
 				SPI0DAT = numbers[ 96+(temp)];
 
 			}else{
-				delay(38);
+				delay(36);
 			}
             SPI0DAT = letters[0+(temp)];
             SPI0DAT = letters[_h+(temp)];
@@ -2460,11 +2465,11 @@ void channels_window(unsigned short line)
 	case 178:
 			temp = line - 171;
 			if (index == 5){
-				delay(31);
+				delay(28);
 				SPI0DAT = numbers[ 96+(temp)];
 
 			}else{
-				delay(38);
+				delay(35);
 			}
             SPI0DAT = letters[0+(temp)];
             SPI0DAT = letters[_p+(temp)];
@@ -2501,11 +2506,11 @@ void channels_window(unsigned short line)
   case 193:
     temp = line - 186;
     if (index == 6) {
-      delay(31);
+      delay(27);
       SPI0DAT = numbers[96 + (temp)];
 
     } else {
-      delay(38);
+      delay(34);
     }
     SPI0DAT = letters[0 + (temp)];
     SPI0DAT = letters[_r + (temp)];
@@ -2530,11 +2535,11 @@ case 203:
   case 208:
     temp = line - 201;
     if (index == 7) {
-      delay(31);
+      delay(26);
       SPI0DAT = numbers[96 + (temp)];
 
     } else {
-      delay(38);
+      delay(33);
     }
     SPI0DAT = letters[0 + (temp)];
     SPI0DAT = letters[_l + (temp)];
@@ -2563,11 +2568,11 @@ case 203:
   case 223:
     temp = line - 216;
     if (index == 8) {
-      delay(31);
+      delay(25);
       SPI0DAT = numbers[96 + (temp)];
 
     } else {
-      delay(38);
+      delay(32);
     }
     SPI0DAT = letters[0 + (temp)];
     SPI0DAT = letters[_h + (temp)];
@@ -2598,10 +2603,10 @@ case 237:
 case 238:
   temp = line - 231;
   if (index == 9) {
-    delay(30);
+    delay(25);
     SPI0DAT = numbers[96 + (temp)];
   } else {
-    delay(37);
+    delay(33);
   }
   SPI0DAT = letters[0 + (temp)];
   SPI0DAT = letters[_b + (temp)];
