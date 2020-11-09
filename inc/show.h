@@ -23,8 +23,9 @@ void disposition_window(unsigned short line);
 
 void rates_window(unsigned short line);
 
-/* void name_window(unsigned short line); */
-
 void display_channel_num(unsigned char ch);
+
 void channels_window(unsigned short line);
+
+void name_window(unsigned short line);
 #endif

@@ -52,6 +52,8 @@ unsigned char display_name=0;
 unsigned char display_init_window=1;
 unsigned char hide_osd=0;
 
+unsigned char crosshair_l=0;
+
 unsigned short rates = 0;
 unsigned short rates_yaw = 0;
 
@@ -59,25 +61,13 @@ unsigned char rate[4] = {0};
 unsigned char rate_yaw[4] = {0};
 unsigned char profileAB = 0;
 
-unsigned short low_bat_l=160;
-unsigned short mode_l=230;
-unsigned short vol_l=240;
-unsigned short turtle_l=180;
-unsigned short crosshair_l=130;
-unsigned short name_l = 30;
-
 unsigned char name_delay = 56;
 
-unsigned char low_bat_l_temp[2]={0};
-unsigned char mode_l_temp[2]={0};
-unsigned char vol_l_temp[2]={0};
-unsigned char turtle_l_temp[2]={0};
 unsigned char low_battery[2]={24,16};
 unsigned char low_rssi[2]={0,0};
-unsigned char name_l_temp[2]={0};
-unsigned char crosshair_l_temp[2]={0};
+unsigned char crosshair_l_temp[2]={0,0};
 
-unsigned char name[9]={0};
+unsigned char name[10]={0};
 
 
 unsigned char arming_ch = 0;
@@ -136,6 +126,10 @@ void display_window_data()
 
     low_rssi[0] = (UART_Buffer[5]/10) << 3;
     low_rssi[1] = (UART_Buffer[5]%10) << 3;
+
+    crosshair_l = UART_Buffer[6] * 10;
+    crosshair_l_temp[0] = (UART_Buffer[6]/10) << 3;
+    crosshair_l_temp[1] = (UART_Buffer[6]%10) << 3;
 }
 
 void flight_window_data()
@@ -289,70 +283,20 @@ void sa_window_data()
     vtx_power_index = UART_Buffer[6];
 }
 
-void disposition_window_data()
-{
-    index = UART_Buffer[1];
-    
-    low_bat_l = UART_Buffer[2] * 10;
-    mode_l = UART_Buffer[3] *10 ;
-    vol_l = UART_Buffer[4] *10 ;
-    turtle_l = UART_Buffer[6] * 10;
-    name_l = UART_Buffer[7] * 10;
-    crosshair_l = UART_Buffer[8] * 10;
-    
-    low_bat_l_temp[0] = (UART_Buffer[2]/10) << 3;
-    low_bat_l_temp[1] = (UART_Buffer[2]%10) << 3;
-    
-    mode_l_temp[0] = (UART_Buffer[3]/10) << 3;
-    mode_l_temp[1] = (UART_Buffer[3]%10) << 3;
-    
-    vol_l_temp[0] = (UART_Buffer[4]/10) << 3;
-    vol_l_temp[1] = (UART_Buffer[4]%10) << 3;
-        
-    turtle_l_temp[0] = (UART_Buffer[6]/10) << 3;
-    turtle_l_temp[1] = (UART_Buffer[6]%10) << 3;
-
-    name_l_temp[0] = (UART_Buffer[7]/10) << 3;
-    name_l_temp[1] = (UART_Buffer[7]%10) << 3;
-
-    crosshair_l_temp[0] = (UART_Buffer[8]/10) << 3;
-    crosshair_l_temp[1] = (UART_Buffer[8]%10) << 3;
-}
 
 void name_window_data()
 {
   unsigned char symbols=0;
   unsigned char i;
   /* display_init_window=0; */
-  for(i=0;i<9;i++){
-    name[i] = UART_Buffer[i+2]<<3;
+  for(i=0;i<10;i++){
+    name[i] = UART_Buffer[i+2] << 3;
     if (name[i] != 0) {
       symbols = i;
     }
   }
-  /* unsigned char count; */
-  /* unsigned char order=0; */
-  /* unsigned char k=2; */
-  /* unsigned char i=0; */
-
   index = UART_Buffer[1];
-
-  /* while (i < 13) { */
-  /*   for (count = 0; count < 6; count++) { */
-  /*     name[i] = name[i] + (((UART_Buffer[k] >> order) & 0x01) << count); */
-  /*     order++; */
-  /*     if (order > 7) { */
-  /*       order = 0; */
-  /*       k++; */
-  /*     } */
-  /*   } */
-  /*   name[i] = (name[i] << 3)/9; */
-  /*   i++; */
-  /* } */
-
   name_delay = 87 - 2 * symbols;
-  name_delay = 50;
-  
 }
 
 // Return 1, 0 as on and off, or actual channel number if any other value
@@ -438,13 +382,10 @@ void main (void)
                 rates_window_data();
                 break;
 	case 8:
-	  disposition_window_data();
+	  channels_window_data();
 	  break;
 	case 9:
 	  name_window_data();
-	  break;
-	case 10:
-	  channels_window_data();
 	  break;
             default:
                 break;
