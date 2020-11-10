@@ -12,6 +12,7 @@ extern unsigned char  second;
 extern unsigned char  flymode;
 extern unsigned char  proto;
 extern unsigned char  rssi_value[2];
+extern unsigned char  failsafe;
 extern unsigned char  index;
 extern unsigned char  lock;
 extern unsigned char  m1;
@@ -291,7 +292,7 @@ void flight_window(unsigned short line)
    if(modeline < line && line < modeline + 9)
     {
         temp = line - modeline;
-	if ((rssi_value[0] == 0) && (rssi_value[1] == 0)) {
+	if (((rssi_value[0] == 0) && (rssi_value[1] == 0)) || failsafe) {
           switch (proto) {
           case 0:
           case 1:
@@ -340,7 +341,21 @@ void flight_window(unsigned short line)
 	  delay(2);
 	}
 
-        if((rssi_value[0]<=low_rssi[0] && rssi_value[1]< low_rssi[1]) || rssi_value[0]<low_rssi[0]){
+	if(failsafe){
+	    delay(50);
+            SPI0DAT = letters[_f+(temp)];
+            SPI0DAT = letters[_a+(temp)];
+            SPI0DAT = letters[_i+(temp)];
+            SPI0DAT = letters[_l+(temp)];
+            SPI0DAT = letters[_s+(temp)];
+            delay(1);
+            SPI0DAT = letters[ _a+(temp)];
+            delay(1);
+            SPI0DAT = letters[ _f+(temp)];
+            delay(1);
+            SPI0DAT = letters[_e+(temp)];
+	    delay(44);
+	} else if((rssi_value[0]<=low_rssi[0] && rssi_value[1]< low_rssi[1]) || rssi_value[0]<low_rssi[0]){
             delay(48);
             SPI0DAT = letters[_l+(temp)];
             SPI0DAT = letters[_o+(temp)];
