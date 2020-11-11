@@ -271,22 +271,24 @@ void flight_window(unsigned short line)
       delay(87);
       SPI0DAT = numbers[112+(temp)];
     }
-   if(!lock && disarmline < line && line < disarmline + 9)
+   if(disarmline < line && line < disarmline + 9)
     {
         temp = line - disarmline;
-	delay(65);
-	SPI0DAT = letters[_d+(temp)];
-	SPI0DAT = letters[_i+(temp)];
-	SPI0DAT = letters[_s+(temp)];
-	SPI0DAT = letters[_a+(temp)];
-	SPI0DAT = letters[_r+(temp)];
-	delay(1);
-	SPI0DAT = letters[_m+(temp)];
-	delay(3);
-	SPI0DAT = letters[_e+(temp)];
-	delay(5);
-	SPI0DAT = letters[_d+(temp)];
-	delay(4);
+        if (lock == 0) {
+	  delay(65);
+	  SPI0DAT = letters[_d + (temp)];
+	  SPI0DAT = letters[_i + (temp)];
+	  SPI0DAT = letters[_s + (temp)];
+	  SPI0DAT = letters[_a + (temp)];
+	  SPI0DAT = letters[_r + (temp)];
+	  delay(1);
+	  SPI0DAT = letters[_m + (temp)];
+	  delay(3);
+	  SPI0DAT = letters[_e + (temp)];
+	  delay(5);
+	  SPI0DAT = letters[_d + (temp)];
+	  delay(4);
+	}
     }
 
    if(modeline < line && line < modeline + 9)
