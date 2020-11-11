@@ -55,6 +55,8 @@ unsigned char hide_osd=0;
 
 unsigned char crosshair_l=0;
 
+unsigned char loading = 1;
+
 unsigned short rates = 0;
 unsigned short rates_yaw = 0;
 
@@ -135,6 +137,7 @@ void display_window_data()
 
 void flight_window_data()
 {
+  loading = 0;   
 	lock = UART_Buffer[1];
 	hide_osd = UART_Buffer[2];
 

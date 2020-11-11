@@ -49,6 +49,7 @@ extern unsigned char crosshair_l_temp[2];
 
 extern unsigned char crosshair_l;
 
+extern unsigned char loading;
 
 extern unsigned char name[10];
 
@@ -237,6 +238,10 @@ void init_window(unsigned short line)
         SPI0DAT = letters[_n+(temp)];
 	delay(1);
         SPI0DAT = letters[_g+(temp)];
+	delay(8);
+	if(showcase == 9) SPI0DAT = numbers[8 + (temp)];
+	else if (showcase == 6) SPI0DAT = numbers[16 + (temp)];
+
     }
 }
 
@@ -356,7 +361,7 @@ void flight_window(unsigned short line)
             SPI0DAT = letters[ _f+(temp)];
             delay(1);
             SPI0DAT = letters[_e+(temp)];
-	    delay(44);
+	    delay(42);
 	} else if((rssi_value[0]<=low_rssi[0] && rssi_value[1]< low_rssi[1]) || rssi_value[0]<low_rssi[0]){
             delay(48);
             SPI0DAT = letters[_l+(temp)];
@@ -1814,6 +1819,10 @@ void sa_window(unsigned short line)
 
 void display_window(unsigned short line)
 {
+  if (loading == 1){
+    init_window(line);
+    return;
+  }
     switch (line)
 	{
 		case 71:
@@ -2645,6 +2654,10 @@ default:
 }
 
 void name_window(unsigned short line){
+  if (loading == 1){
+    init_window(line);
+    return;
+  }
     switch (line)
       {
       case 71:
