@@ -745,8 +745,44 @@ void set_window(unsigned short line)
 		case 206:
 		case 207:
 		case 208:
-			temp = line - 201;
-			if (index == 6)
+
+				temp = line - 201;
+				if (index == 6)
+				{
+						delay(26);
+						SPI0DAT = numbers[ 96+(temp)];
+				}
+				else
+				{
+						delay(33);
+				}
+				SPI0DAT = letters[0+(temp)];
+				SPI0DAT = letters[_c+(temp)];
+				SPI0DAT = letters[_h+(temp)];
+				SPI0DAT = letters[_a+(temp)];
+				SPI0DAT = letters[_n+(temp)];
+				delay(1);
+				SPI0DAT = letters[_n+(temp)];
+				delay(1);
+				SPI0DAT = letters[_e+(temp)];
+				delay(1);
+				SPI0DAT = letters[_l+(temp)];
+				delay(1);
+				SPI0DAT = letters[_s+(temp)];
+				delay(42);
+				SPI0DAT = numbers[ 96+(temp)];				
+				break;
+
+		case 216:
+		case 217:
+		case 218:
+		case 219:
+		case 220:
+		case 221:
+		case 222:
+		case 223:
+			temp = line - 216;
+			if (index == 7)
 			{
 					delay(26);
 					SPI0DAT = numbers[ 96+(temp)];
@@ -762,16 +798,17 @@ void set_window(unsigned short line)
             delay(1);
 			SPI0DAT = letters[_e+(temp)];
 			break;
-		case 216:
-		case 217:
-		case 218:
-		case 219:
-		case 220:
-		case 221:
-		case 222:
-		case 223:
-			temp = line - 216;
-			if (index == 7)
+			
+		case 231:
+		case 232:
+		case 233:
+		case 234:
+		case 235:
+		case 236:
+		case 237:
+		case 238:
+			temp = line - 231;
+			if (index == 8)
 			{
 					delay(26);
 					SPI0DAT = numbers[ 96+(temp)];
@@ -1355,35 +1392,6 @@ void motor_window(unsigned short line)
 		{
 				temp = line - 176;
 				if (index == 5)
-				{
-						delay(26);
-						SPI0DAT = numbers[ 96+(temp)];
-				}
-				else
-				{
-						delay(33);
-				}
-				SPI0DAT = letters[0+(temp)];
-				SPI0DAT = letters[_c+(temp)];
-				SPI0DAT = letters[_h+(temp)];
-				SPI0DAT = letters[_a+(temp)];
-				SPI0DAT = letters[_n+(temp)];
-				delay(1);
-				SPI0DAT = letters[_n+(temp)];
-				delay(1);
-				SPI0DAT = letters[_e+(temp)];
-				delay(1);
-				SPI0DAT = letters[_l+(temp)];
-				delay(1);
-				SPI0DAT = letters[_s+(temp)];
-				delay(50);
-				SPI0DAT = numbers[ 96+(temp)];				
-
-		}
-		if(190 < line && line < 199)
-		{
-				temp = line - 191;
-				if (index == 6)
 				{
 						delay(27);
 						SPI0DAT = numbers[ 96+(temp)];
