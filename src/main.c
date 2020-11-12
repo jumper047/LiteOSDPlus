@@ -70,7 +70,7 @@ unsigned char low_battery[2]={24,16};
 unsigned char low_rssi[2]={0,0};
 unsigned char crosshair_l_temp[2]={0,0};
 
-unsigned char name[10]={0};
+unsigned char name[9]={0};
 
 
 unsigned char arming_ch = 0;

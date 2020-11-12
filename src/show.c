@@ -51,7 +51,7 @@ extern unsigned char crosshair_l;
 
 extern unsigned char loading;
 
-extern unsigned char name[10];
+extern unsigned char name[9];
 
 extern unsigned char arming_ch;
 extern unsigned char idle_up_ch;
