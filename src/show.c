@@ -247,7 +247,6 @@ void init_window(unsigned short line)
 
 void flight_window(unsigned short line)
 {if(!hide_osd){
-
    if(display_name && nameline < line && line < nameline + 9)
     {
       temp = line - nameline;
@@ -280,7 +279,7 @@ void flight_window(unsigned short line)
     {
         temp = line - disarmline;
         if (lock == 0) {
-	  delay(65);
+	  delay(68);
 	  SPI0DAT = letters[_d + (temp)];
 	  SPI0DAT = letters[_i + (temp)];
 	  SPI0DAT = letters[_s + (temp)];
@@ -348,8 +347,8 @@ void flight_window(unsigned short line)
 	  delay(2);
 	}
 
-	if(failsafe){
-	    delay(50);
+ 	if(failsafe){
+	    delay(46);
             SPI0DAT = letters[_f+(temp)];
             SPI0DAT = letters[_a+(temp)];
             SPI0DAT = letters[_i+(temp)];
@@ -361,9 +360,9 @@ void flight_window(unsigned short line)
             SPI0DAT = letters[ _f+(temp)];
             delay(1);
             SPI0DAT = letters[_e+(temp)];
-	    delay(42);
+	    delay(46);
 	} else if((rssi_value[0]<=low_rssi[0] && rssi_value[1]< low_rssi[1]) || rssi_value[0]<low_rssi[0]){
-            delay(48);
+            delay(43);
             SPI0DAT = letters[_l+(temp)];
             SPI0DAT = letters[_o+(temp)];
             SPI0DAT = letters[_w+(temp)];
@@ -379,7 +378,7 @@ void flight_window(unsigned short line)
             delay(1);
             SPI0DAT = letters[ _l+(temp)];
 
-	    delay(42);
+	    delay(45);
 	} else {
 	  delay(110);
 	}
@@ -388,7 +387,6 @@ void flight_window(unsigned short line)
         switch (flymode)
         {
             case 0:
-                /* delay(110); */
                 SPI0DAT =letters[_l+(temp)];
                 SPI0DAT =letters[_e+(temp)];
                 SPI0DAT =letters[_v+(temp)];
@@ -396,7 +394,6 @@ void flight_window(unsigned short line)
                 SPI0DAT =letters[_l+(temp)];
                 break;
             case 1:
-                /* delay(112); */
 	      delay(1);
                 SPI0DAT =letters[_a+(temp)];
                 SPI0DAT =letters[_c+(temp)];
@@ -404,7 +401,6 @@ void flight_window(unsigned short line)
                 SPI0DAT =letters[_o+(temp)];
                 break;
             case 2:
-                /* delay(110); */
                 SPI0DAT =letters[_r+(temp)];
                 SPI0DAT =letters[_a+(temp)];
                 SPI0DAT =letters[_c+(temp)];
@@ -414,7 +410,6 @@ void flight_window(unsigned short line)
                 SPI0DAT =letters[_h+(temp)];
                 break;
             case 3:
-                /* delay(110); */
                 SPI0DAT =letters[_r+(temp)];
                 SPI0DAT =letters[_a+(temp)];
                 SPI0DAT =letters[_c+(temp)];
@@ -424,7 +419,6 @@ void flight_window(unsigned short line)
                 SPI0DAT =letters[_a+(temp)];
                 break;
             case 4:
-                /* delay(110); */
                 SPI0DAT =letters[_h+(temp)];
                 SPI0DAT =letters[_o+(temp)];
                 SPI0DAT =letters[_r+(temp)];
@@ -451,7 +445,7 @@ void flight_window(unsigned short line)
 
         if((VOT_value[0]<=low_battery[0] && VOT_value[1]< low_battery[1]) || VOT_value[0]<low_battery[0])
         {
-            delay(53);
+            delay(47);
             SPI0DAT = letters[_l+(temp)];
             SPI0DAT = letters[_o+(temp)];
             SPI0DAT = letters[_w+(temp)];
@@ -468,7 +462,7 @@ void flight_window(unsigned short line)
             SPI0DAT = letters[_r+(temp)];
             delay(1);
             SPI0DAT = letters[_y+(temp)];
-	    delay(50);
+	    delay(52);
         } else {
 	  delay(125);	  
 	}
