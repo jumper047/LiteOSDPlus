@@ -2352,7 +2352,7 @@ void channels_window(unsigned short line)
             SPI0DAT = letters[_g+(temp)];
             delay(1);
             SPI0DAT = numbers[ 104+(temp)];
-            delay(20);
+            delay(42);
 	    display_channel_num(arming_ch);
 	    break;
 
@@ -2385,7 +2385,7 @@ void channels_window(unsigned short line)
             SPI0DAT = letters[_p+(temp)];
             delay(1);
             SPI0DAT = numbers[ 104+(temp)];
-            delay(20);
+            delay(37);
 	    display_channel_num(idle_up_ch);
 	    break;
 
@@ -2424,7 +2424,7 @@ void channels_window(unsigned short line)
             SPI0DAT = letters[_e+(temp)];
             delay(1);
             SPI0DAT = numbers[ 104+(temp)];
-            delay(20);
+            delay(23);
 	    display_channel_num(levelmode_ch);
 	    break;
 
@@ -2461,7 +2461,7 @@ void channels_window(unsigned short line)
             SPI0DAT = letters[_e+(temp)];
             delay(1);
             SPI0DAT = numbers[ 104+(temp)];
-            delay(20);
+            delay(28);
 	    display_channel_num(racemode_ch);
 	    break;
             
@@ -2494,7 +2494,7 @@ void channels_window(unsigned short line)
             SPI0DAT = letters[_n+(temp)];
             delay(1);
             SPI0DAT = numbers[ 104+(temp)];
-            delay(20);
+            delay(36);
 	    display_channel_num(horizon_ch);
 	    break;
 
@@ -2564,7 +2564,7 @@ void channels_window(unsigned short line)
     SPI0DAT = letters[_s + (temp)];
     delay(1);
     SPI0DAT = numbers[104 + (temp)];
-    delay(20);
+    delay(46);
     display_channel_num(rates_ch);
     break;
 
@@ -2597,7 +2597,7 @@ case 203:
     SPI0DAT = letters[_n + (temp)];
     delay(1);
     SPI0DAT = numbers[104 + (temp)];
-    delay(20);
+    delay(39);
     display_channel_num(leds_on_ch);
     break;
 
@@ -2632,7 +2632,7 @@ case 203:
     SPI0DAT = letters[_d + (temp)];
     delay(1);
     SPI0DAT = numbers[104 + (temp)];
-    delay(20);
+    delay(36);
     display_channel_num(hideosd_ch);
   break;
 
