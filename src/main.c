@@ -295,7 +295,7 @@ void name_window_data()
   unsigned char symbols=0;
   unsigned char i;
   /* display_init_window=0; */
-  for(i=0;i<10;i++){
+  for(i=0;i<9;i++){
     name[i] = UART_Buffer[i+2] << 3;
     if (name[i] != 0) {
       symbols = i;
