@@ -302,7 +302,7 @@ void name_window_data()
     }
   }
   index = UART_Buffer[1];
-  name_delay = 87 - 2 * symbols;
+  name_delay = 80 - 1 * symbols;
 }
 
 // Return 1, 0 as on and off, or actual channel number if any other value
