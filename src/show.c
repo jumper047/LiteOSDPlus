@@ -230,17 +230,9 @@ void init_window(unsigned short line)
         delay(68);
         switch (loading_stage) {
         case 0:
-          SPI0DAT = letters[_l + (temp)];
-          SPI0DAT = letters[_o + (temp)];
-          SPI0DAT = letters[_a + (temp)];
-          SPI0DAT = letters[_d + (temp)];
-          delay(1);
-          SPI0DAT = letters[_i + (temp)];
-          delay(1);
-          SPI0DAT = letters[_n + (temp)];
-          delay(3);
-          SPI0DAT = letters[_g + (temp)];
-          delay(3);
+          SPI0DAT = numbers[88 + (temp)];
+          SPI0DAT = numbers[88 + (temp)];
+          SPI0DAT = numbers[88 + (temp)];
 	  break;
 	case 1:
 	  delay(10);
