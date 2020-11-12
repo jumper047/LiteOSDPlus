@@ -55,7 +55,7 @@ unsigned char hide_osd=0;
 
 unsigned char crosshair_l=0;
 
-unsigned char loading = 1;
+unsigned char loading_stage = 0;
 
 unsigned short rates = 0;
 unsigned short rates_yaw = 0;
@@ -119,7 +119,11 @@ void rates_window_data()
 
 void display_window_data()
 {
-    index = UART_Buffer[1];
+  if (loading_stage == 2) {
+    loading_stage = 3;
+  }
+ 
+   index = UART_Buffer[1];
     
     display_name = (UART_Buffer[2]) & 0x1;
     display_crosshair = (UART_Buffer[3]) & 0x1;
@@ -137,7 +141,11 @@ void display_window_data()
 
 void flight_window_data()
 {
-  loading = 0;   
+  if (loading_stage == 0) {
+    loading_stage = 1;
+  } else if (loading_stage == 3){
+    loading_stage = 4;
+  }
 	lock = UART_Buffer[1];
 	hide_osd = UART_Buffer[2];
 
@@ -294,6 +302,9 @@ void name_window_data()
 {
   unsigned char symbols=0;
   unsigned char i;
+  if(loading_stage < 2) {
+    loading_stage = 2;
+  }
   /* display_init_window=0; */
   for(i=0;i<9;i++){
     name[i] = UART_Buffer[i+2] << 3;

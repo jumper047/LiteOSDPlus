@@ -49,7 +49,7 @@ extern unsigned char crosshair_l_temp[2];
 
 extern unsigned char crosshair_l;
 
-extern unsigned char loading;
+extern unsigned char loading_stage;
 
 extern unsigned char name[9];
 
@@ -227,26 +227,43 @@ void init_window(unsigned short line)
     if(show_betafpvline)
     {
         temp = line - 160;
-        delay(56);
-        SPI0DAT = letters[_l+(temp)];
-        SPI0DAT = letters[_o+(temp)];
-        SPI0DAT = letters[_a+(temp)];
-        SPI0DAT = letters[_d+(temp)];
-	delay(1);
-        SPI0DAT = letters[_i+(temp)];
-	delay(1);
-        SPI0DAT = letters[_n+(temp)];
-	delay(1);
-        SPI0DAT = letters[_g+(temp)];
-	delay(8);
-	if(showcase == 9) SPI0DAT = numbers[8 + (temp)];
-	else if (showcase == 6) SPI0DAT = numbers[16 + (temp)];
-
+        delay(68);
+        switch (loading_stage) {
+        case 0:
+          SPI0DAT = letters[_l + (temp)];
+          SPI0DAT = letters[_o + (temp)];
+          SPI0DAT = letters[_a + (temp)];
+          SPI0DAT = letters[_d + (temp)];
+          delay(1);
+          SPI0DAT = letters[_i + (temp)];
+          delay(1);
+          SPI0DAT = letters[_n + (temp)];
+          delay(3);
+          SPI0DAT = letters[_g + (temp)];
+          delay(3);
+	  break;
+	case 1:
+	  delay(10);
+          SPI0DAT = numbers[24 + (temp)];
+	  break;
+	case 2:
+	  delay(10);
+          SPI0DAT = numbers[16 + (temp)];
+	  break;
+	default:
+	  delay(10);
+          SPI0DAT = numbers[8 + (temp)];
+	  break;
+        }
     }
 }
 
 void flight_window(unsigned short line)
-{if(!hide_osd){
+{if(loading_stage < 4){
+    init_window(line);
+    return;
+  }
+if(!hide_osd){
    if(display_name && nameline < line && line < nameline + 9)
     {
       temp = line - nameline;
@@ -1813,7 +1830,7 @@ void sa_window(unsigned short line)
 
 void display_window(unsigned short line)
 {
-  if (loading == 1){
+  if (loading_stage < 4){
     init_window(line);
     return;
   }
@@ -2648,7 +2665,7 @@ default:
 }
 
 void name_window(unsigned short line){
-  if (loading == 1){
+  if (loading_stage < 4){
     init_window(line);
     return;
   }
