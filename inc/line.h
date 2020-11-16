@@ -31,6 +31,12 @@
 #define show_m3line (130 < line && line < 139)
 #define show_m4line (145 < line && line < 155)
 #define show_motor_exitline (165 < line && line < 175)
+#define disarmline 160
+#define modeline 230
+#define volline 240
+#define turtleline 180
+#define nameline 30
+#define crosshairline 130
 
 
 

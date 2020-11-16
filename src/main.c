@@ -11,7 +11,7 @@
 #include <SI_EFM8BB2_Register_Enums.h>
 #include "retargetserial.h"
 #include "InitDevice.h"
-
+/* #include "ascii.h" */
 //-----------------------------------------------------------------------------
 // Global Variables
 //-----------------------------------------------------------------------------
@@ -26,6 +26,7 @@ unsigned char  VOT_value[3] = {0};
 unsigned char  flymode = 0;
 unsigned char  proto=1;
 unsigned char  rssi_value[2] = {0};
+unsigned char  failsafe = 1;
 unsigned char  index=0;
 unsigned char  m1 = 0;
 unsigned char  m2 = 0;
@@ -52,6 +53,10 @@ unsigned char display_name=0;
 unsigned char display_init_window=1;
 unsigned char hide_osd=0;
 
+unsigned char crosshair_l=0;
+
+unsigned char loading_stage = 0;
+
 unsigned short rates = 0;
 unsigned short rates_yaw = 0;
 
@@ -59,24 +64,24 @@ unsigned char rate[4] = {0};
 unsigned char rate_yaw[4] = {0};
 unsigned char profileAB = 0;
 
-unsigned short low_bat_l=160;
-unsigned short mode_l=230;
-unsigned short vol_l=240;
-unsigned short turtle_l=180;
-unsigned short crosshair_l=130;
-unsigned short name_l = 30;
-
 unsigned char name_delay = 56;
 
-unsigned char low_bat_l_temp[2]={0};
-unsigned char mode_l_temp[2]={0};
-unsigned char vol_l_temp[2]={0};
-unsigned char turtle_l_temp[2]={0};
 unsigned char low_battery[2]={24,16};
 unsigned char low_rssi[2]={0,0};
-unsigned char name_l_temp[2]={0};
-unsigned char crosshair_l_temp[2]={0};
-unsigned char name[10]={0};
+unsigned char crosshair_l_temp[2]={0,0};
+
+unsigned char name[9]={0};
+
+
+unsigned char arming_ch = 0;
+unsigned char idle_up_ch = 0;
+unsigned char levelmode_ch = 0;
+unsigned char racemode_ch = 0;
+unsigned char horizon_ch = 0;
+unsigned char pidprofile_ch = 0;
+unsigned char rates_ch = 0;
+unsigned char leds_on_ch = 0;
+unsigned char hideosd_ch = 0;
 
 extern unsigned char UART_Buffer[12];
 extern void delay(unsigned char n);
@@ -114,7 +119,11 @@ void rates_window_data()
 
 void display_window_data()
 {
-    index = UART_Buffer[1];
+  if (loading_stage == 2) {
+    loading_stage = 3;
+  }
+ 
+   index = UART_Buffer[1];
     
     display_name = (UART_Buffer[2]) & 0x1;
     display_crosshair = (UART_Buffer[3]) & 0x1;
@@ -124,10 +133,19 @@ void display_window_data()
 
     low_rssi[0] = (UART_Buffer[5]/10) << 3;
     low_rssi[1] = (UART_Buffer[5]%10) << 3;
+
+    crosshair_l = UART_Buffer[6] * 10;
+    crosshair_l_temp[0] = (UART_Buffer[6]/10) << 3;
+    crosshair_l_temp[1] = (UART_Buffer[6]%10) << 3;
 }
 
 void flight_window_data()
 {
+  if (loading_stage == 0) {
+    loading_stage = 1;
+  } else if (loading_stage == 3){
+    loading_stage = 4;
+  }
 	lock = UART_Buffer[1];
 	hide_osd = UART_Buffer[2];
 
@@ -140,6 +158,8 @@ void flight_window_data()
 
     rssi_value[0] = (UART_Buffer[8] / 10) << 3;
     rssi_value[1] = (UART_Buffer[8] % 10) << 3;
+
+    failsafe = (UART_Buffer[9]);
 
     chn[1] = (UART_Buffer[6] >>0) & 0x1;
     chn[2] = (UART_Buffer[6] >>1) & 0x1;
@@ -277,51 +297,54 @@ void sa_window_data()
     vtx_power_index = UART_Buffer[6];
 }
 
-void disposition_window_data()
+
+void name_window_data()
 {
-    index = UART_Buffer[1];
-    
-    low_bat_l = UART_Buffer[2] * 10;
-    mode_l = UART_Buffer[3] *10 ;
-    vol_l = UART_Buffer[4] *10 ;
-    turtle_l = UART_Buffer[6] * 10;
-    name_l = UART_Buffer[7] * 10;
-    crosshair_l = UART_Buffer[8] * 10;
-    
-    low_bat_l_temp[0] = (UART_Buffer[2]/10) << 3;
-    low_bat_l_temp[1] = (UART_Buffer[2]%10) << 3;
-    
-    mode_l_temp[0] = (UART_Buffer[3]/10) << 3;
-    mode_l_temp[1] = (UART_Buffer[3]%10) << 3;
-    
-    vol_l_temp[0] = (UART_Buffer[4]/10) << 3;
-    vol_l_temp[1] = (UART_Buffer[4]%10) << 3;
-        
-    turtle_l_temp[0] = (UART_Buffer[6]/10) << 3;
-    turtle_l_temp[1] = (UART_Buffer[6]%10) << 3;
-
-    name_l_temp[0] = (UART_Buffer[7]/10) << 3;
-    name_l_temp[1] = (UART_Buffer[7]%10) << 3;
-
-    crosshair_l_temp[0] = (UART_Buffer[8]/10) << 3;
-    crosshair_l_temp[1] = (UART_Buffer[8]%10) << 3;
-}
-
-void name_data()
-{
-  unsigned char symbols;
+  unsigned char symbols=0;
   unsigned char i;
-  display_init_window=0;
-  for(i=0;i<10;i++){
-    name[i] = UART_Buffer[i+1];
+  if(loading_stage < 2) {
+    loading_stage = 2;
+  }
+  /* display_init_window=0; */
+  for(i=0;i<9;i++){
+    name[i] = UART_Buffer[i+2] << 3;
     if (name[i] != 0) {
       symbols = i;
     }
   }
-  name_delay = 87 - 2 * symbols;
-  
+  index = UART_Buffer[1];
+  name_delay = 80 - 1 * symbols;
 }
 
+// Return 1, 0 as on and off, or actual channel number if any other value
+char transform_ch_info(char info){
+  if (info == 0 || info == 1) {
+    // 0 and 1 are off and on
+    return info;
+
+  } else if (info > 1 && info < 8) {
+    // correct and return actual channel num
+    return info + 3;
+  } else {
+    // because 11th channel skipped in silverware
+    return info + 4;
+  }
+}
+
+void channels_window_data()
+{
+  index = UART_Buffer[1];
+
+  arming_ch = transform_ch_info(UART_Buffer[2]) << 3;
+  idle_up_ch = transform_ch_info(UART_Buffer[3]) << 3;
+  levelmode_ch = transform_ch_info(UART_Buffer[4]) << 3;
+  racemode_ch = transform_ch_info(UART_Buffer[5]) << 3;
+  horizon_ch = transform_ch_info(UART_Buffer[6]) << 3;
+  pidprofile_ch = transform_ch_info(UART_Buffer[7]) << 3;
+  rates_ch = transform_ch_info(UART_Buffer[8]) << 3;
+  leds_on_ch = transform_ch_info(UART_Buffer[9]) << 3;
+  hideosd_ch = transform_ch_info(UART_Buffer[10]) << 3;
+}
 
 
 void delayS(unsigned char n)
@@ -376,10 +399,10 @@ void main (void)
                 rates_window_data();
                 break;
 	case 8:
-	  disposition_window_data();
+	  channels_window_data();
 	  break;
 	case 9:
-	  name_data();
+	  name_window_data();
 	  break;
             default:
                 break;
