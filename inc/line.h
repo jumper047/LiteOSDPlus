@@ -1,3 +1,5 @@
+#include "config.h"
+
 #ifndef line_h
 #define line_h
 
@@ -32,18 +34,16 @@
 #define show_m4line (145 < line && line < 155)
 #define show_motor_exitline (165 < line && line < 175)
 #define disarmline 160
+#ifndef f042_1s_bl
 #define modeline 230
 #define volline 240
+#else
+#define modeline 220
+#define volline 230
+#endif
 #define turtleline 180
 #define nameline 30
 #define crosshairline 130
-
-
-
-
-
-
-
 #endif
 
 

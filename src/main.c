@@ -198,7 +198,7 @@ void flight_window_data()
         }
     }
 
-   // turtle = UART_Buffer[7];
+    turtle = UART_Buffer[7];
     
 }
  
