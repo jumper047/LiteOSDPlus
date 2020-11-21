@@ -44,6 +44,7 @@ extern unsigned char low_line_l;
 extern unsigned char low_line_h;
 extern unsigned char display_crosshair;
 extern unsigned char display_name;
+extern unsigned char display_rssi;
 extern unsigned char display_init_window;
 extern unsigned char name_delay;
 extern unsigned char hide_osd;
@@ -324,7 +325,7 @@ if(!hide_osd){
    if(modeline < line && line < modeline + 9)
     {
         temp = line - modeline;
-	if (((rssi_value[0] == 0) && (rssi_value[1] == 0)) || failsafe) {
+	if (display_rssi || failsafe) {
           switch (proto) {
           case 0:
             delay(4);
@@ -2241,6 +2242,36 @@ void display_window(unsigned short line)
 				delay(37);
 			}
 			SPI0DAT = letters[0+(temp)];
+            SPI0DAT = letters[_r+(temp)];
+	    delay(1);
+            SPI0DAT = letters[_s+(temp)];
+            SPI0DAT = letters[_s+(temp)];
+            SPI0DAT = letters[_i+(temp)];
+	    delay(1);
+            SPI0DAT = numbers[ 104+(temp)];
+
+            delay(25);
+	    SPI0DAT = letters[ (display_rssi?_y:_n)+(temp)];
+            delay(1);
+	    break;
+
+	case 186:
+	case 187:
+	case 188:
+	case 189:
+	case 190:
+	case 191:
+	case 192:
+	case 193:
+			temp = line - 186;
+			if (index == 6){
+
+				delay(30);
+				SPI0DAT = numbers[ 96+(temp)];
+			}else{
+				delay(37);
+			}
+			SPI0DAT = letters[0+(temp)];
 			SPI0DAT = letters[_l+(temp)];
             SPI0DAT = letters[_o+(temp)];
             SPI0DAT = letters[_w+(temp)];
@@ -2260,17 +2291,17 @@ void display_window(unsigned short line)
 
 	    break;
 
-	case 186:
-	case 187:
-	case 188:
-	case 189:
-	case 190:
-	case 191:
-	case 192:
-	case 193:
-			temp = line - 186;
-			if (index == 6){
 
+	case 202:
+	case 203:
+	case 204:
+	case 205:
+	case 206:
+	case 207:
+	case 208:
+	case 209:
+			temp = line - 202;
+			if (index == 7){
 				delay(30);
 				SPI0DAT = numbers[ 96+(temp)];
 			}else{

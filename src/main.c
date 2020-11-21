@@ -51,6 +51,7 @@ unsigned char main_version = 0;
 unsigned char modify_version = 0;
 unsigned char display_crosshair=0;
 unsigned char display_name=0;
+unsigned char display_rssi=0;
 unsigned char display_init_window=1;
 unsigned char hide_osd=0;
 
@@ -130,6 +131,7 @@ void display_window_data()
     
     display_name = (UART_Buffer[2]) & 0x1;
     display_crosshair = (UART_Buffer[3]) & 0x1;
+    display_rssi = (UART_Buffer[7]) & 0x1;
 
     low_battery[0] = (UART_Buffer[4]/10) << 3;
     low_battery[1] = (UART_Buffer[4]%10) << 3;
