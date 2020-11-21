@@ -66,8 +66,10 @@ extern unsigned char racemode_ch;
 extern unsigned char horizon_ch;
 extern unsigned char pidprofile_ch;
 extern unsigned char rates_ch;
-extern unsigned char leds_on_ch;
 extern unsigned char hideosd_ch;
+#ifdef f042_1s_bayang
+extern unsigned char leds_on_ch;
+#endif
 
 extern unsigned char   rx0[3];
 extern unsigned char   rx1[3];
@@ -2767,39 +2769,6 @@ case 203:
       delay(33);
     }
     SPI0DAT = letters[0 + (temp)];
-    SPI0DAT = letters[_l + (temp)];
-    SPI0DAT = letters[_e + (temp)];
-    SPI0DAT = letters[_d + (temp)];
-    SPI0DAT = letters[_s + (temp)];
-    delay(1);
-    SPI0DAT = letters[0 + (temp)];
-    delay(1);
-    SPI0DAT = letters[_o + (temp)];
-    delay(1);
-    SPI0DAT = letters[_n + (temp)];
-    delay(1);
-    SPI0DAT = numbers[104 + (temp)];
-    delay(39);
-    display_channel_num(leds_on_ch);
-    break;
-
-  case 216:
-  case 217:
-  case 218:
-  case 219:
-  case 220:
-  case 221:
-  case 222:
-  case 223:
-    temp = line - 216;
-    if (index == 8) {
-      delay(25);
-      SPI0DAT = numbers[96 + (temp)];
-
-    } else {
-      delay(32);
-    }
-    SPI0DAT = letters[0 + (temp)];
     SPI0DAT = letters[_h + (temp)];
     SPI0DAT = letters[_i + (temp)];
     SPI0DAT = letters[_d + (temp)];
@@ -2816,6 +2785,40 @@ case 203:
     SPI0DAT = numbers[104 + (temp)];
     delay(36);
     display_channel_num(hideosd_ch);
+    break;
+
+  case 216:
+  case 217:
+  case 218:
+  case 219:
+  case 220:
+  case 221:
+  case 222:
+  case 223:
+    temp = line - 216;
+    if (index == 8) {
+#ifdef f042_1s_bayang
+      delay(25);
+      SPI0DAT = numbers[96 + (temp)];
+
+    } else {
+      delay(32);
+    }
+    SPI0DAT = letters[0 + (temp)];
+    SPI0DAT = letters[_l + (temp)];
+    SPI0DAT = letters[_e + (temp)];
+    SPI0DAT = letters[_d + (temp)];
+    SPI0DAT = letters[_s + (temp)];
+    delay(1);
+    SPI0DAT = letters[0 + (temp)];
+    delay(1);
+    SPI0DAT = letters[_o + (temp)];
+    delay(1);
+    SPI0DAT = letters[_n + (temp)];
+    delay(1);
+    SPI0DAT = numbers[104 + (temp)];
+    delay(39);
+    display_channel_num(leds_on_ch);
   break;
 
 	case 231:
@@ -2828,6 +2831,7 @@ case 237:
 case 238:
   temp = line - 231;
   if (index == 9) {
+#endif
     delay(25);
     SPI0DAT = numbers[96 + (temp)];
   } else {

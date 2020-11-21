@@ -11,6 +11,7 @@
 #include <SI_EFM8BB2_Register_Enums.h>
 #include "retargetserial.h"
 #include "InitDevice.h"
+#include "config.h"
 /* #include "ascii.h" */
 //-----------------------------------------------------------------------------
 // Global Variables
@@ -80,8 +81,10 @@ unsigned char racemode_ch = 0;
 unsigned char horizon_ch = 0;
 unsigned char pidprofile_ch = 0;
 unsigned char rates_ch = 0;
-unsigned char leds_on_ch = 0;
 unsigned char hideosd_ch = 0;
+#ifdef f042_1s_bayang
+unsigned char leds_on_ch = 0;
+#endif
 
 extern unsigned char UART_Buffer[12];
 extern void delay(unsigned char n);
@@ -342,8 +345,10 @@ void channels_window_data()
   horizon_ch = transform_ch_info(UART_Buffer[6]) << 3;
   pidprofile_ch = transform_ch_info(UART_Buffer[7]) << 3;
   rates_ch = transform_ch_info(UART_Buffer[8]) << 3;
-  leds_on_ch = transform_ch_info(UART_Buffer[9]) << 3;
-  hideosd_ch = transform_ch_info(UART_Buffer[10]) << 3;
+  hideosd_ch = transform_ch_info(UART_Buffer[9]) << 3;
+#ifdef f042_1s_bayang
+  leds_on_ch = transform_ch_info(UART_Buffer[10]) << 3;
+#endif
 }
 
 
