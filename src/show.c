@@ -15,6 +15,7 @@ extern unsigned char  min_text[2];
 extern unsigned char  sec_text[2];
 extern unsigned char  minute;
 extern unsigned char  second;
+extern unsigned char  blink_state;
 extern unsigned char  flymode;
 extern unsigned char  proto;
 extern unsigned char  rssi_value[2];
@@ -401,7 +402,7 @@ if(!hide_osd){
             delay(1);
             SPI0DAT = letters[_e+(temp)];
 	    delay(46);
-	} else if((rssi_value[0]<=low_rssi[0] && rssi_value[1]< low_rssi[1]) || rssi_value[0]<low_rssi[0]){
+	} else if(((rssi_value[0]<=low_rssi[0] && rssi_value[1]< low_rssi[1]) || rssi_value[0]<low_rssi[0]) && blink_state == 0){
             delay(43);
             SPI0DAT = letters[_l+(temp)];
             SPI0DAT = letters[_o+(temp)];
@@ -484,7 +485,7 @@ if(!hide_osd){
         SPI0DAT =numbers[VOT_value[2]+(temp)];
         SPI0DAT =letters[ _v+(temp)];
 
-        if((VOT_value[0]<=low_battery[0] && VOT_value[1]< low_battery[1]) || VOT_value[0]<low_battery[0])
+        if(((VOT_value[0]<=low_battery[0] && VOT_value[1]< low_battery[1]) || VOT_value[0]<low_battery[0]) && blink_state == 1)
         {
             delay(47);
             SPI0DAT = letters[_l+(temp)];

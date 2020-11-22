@@ -10,6 +10,8 @@ unsigned char  flag = 0;
 unsigned short  rising_count=0;
 unsigned char  minute=0;
 unsigned char  second=0;
+unsigned short blink_count=0;
+unsigned char blink_state=0;
 unsigned char UART_Buffer[12] = {0};
 unsigned char UART_Buffer_Size = 0;
 unsigned short  line = 0;
@@ -38,6 +40,12 @@ SI_INTERRUPT (INT0_ISR, INT0_IRQn)
         TH0 = 0x00;
         TL0 = 0x00;
         IT01CF = IT01CF_IN0PL__ACTIVE_LOW | IT01CF_IN0SL__P0_2;
+
+	blink_count++;
+	if(blink_count>=16129){
+	  blink_state = !blink_state;
+	}
+
         if(lock == 1 && showcase == 0)
         {
             rising_count++;
