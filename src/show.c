@@ -298,9 +298,7 @@ if(!hide_osd){
    if(lock == 0 && disarmline < line && line < disarmline + INCREMENT)
     {
         temp = line - disarmline;
-	/* if (lock == 0 && turtle == 0){ */
-	if (lock == 0){
-	  delay(68);
+	  delay(71);
 	  SPI0DAT = letters[_d + (temp)];
 	  SPI0DAT = letters[_i + (temp)];
 	  SPI0DAT = letters[_s + (temp)];
@@ -313,11 +311,8 @@ if(!hide_osd){
 	  delay(5);
 	  SPI0DAT = letters[_d + (temp)];
 	  delay(4);
-	/* } else if (lock == 0 && turtle == 1) { */
-
-	}
     }
-   if(turtleline < line && line < turtleline + INCREMENT)
+   if(turtle == 1 && turtleline < line && line < turtleline + INCREMENT)
      {
        temp = line - turtleline;
 	  delay(73);
@@ -511,7 +506,7 @@ if(!hide_osd){
             SPI0DAT = letters[_r+(temp)];
             delay(1);
             SPI0DAT = letters[_y+(temp)];
-	    delay(52);
+	    delay(49);
         } else {
 	  delay(125);	  
 	}
