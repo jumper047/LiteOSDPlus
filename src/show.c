@@ -294,19 +294,12 @@ if(!hide_osd){
       delay(87);
       SPI0DAT = numbers[112+(temp)];
     }
-   if(disarmline < line && line < disarmline + INCREMENT)
+
+   if(lock == 0 && disarmline < line && line < disarmline + INCREMENT)
     {
         temp = line - disarmline;
-	if (lock == 0 && turtle){
-	  delay(73);
-	  SPI0DAT = letters[_t + (temp)];
-	  SPI0DAT = letters[_u + (temp)];
-	  SPI0DAT = letters[_r + (temp)];
-	  SPI0DAT = letters[_t + (temp)];
-	  SPI0DAT = letters[_l + (temp)];
-	  delay(2);
-	  SPI0DAT = letters[_e + (temp)];	  
-	} else if (lock == 0) {
+	/* if (lock == 0 && turtle == 0){ */
+	if (lock == 0){
 	  delay(68);
 	  SPI0DAT = letters[_d + (temp)];
 	  SPI0DAT = letters[_i + (temp)];
@@ -316,12 +309,26 @@ if(!hide_osd){
 	  delay(1);
 	  SPI0DAT = letters[_m + (temp)];
 	  delay(3);
-	  SPI0DAT = letters[_e + (temp)];
+	  SPI0DAT = letters[_e + (temp)]; 
 	  delay(5);
 	  SPI0DAT = letters[_d + (temp)];
 	  delay(4);
+	/* } else if (lock == 0 && turtle == 1) { */
+
 	}
     }
+   if(turtleline < line && line < turtleline + INCREMENT)
+     {
+       temp = line - turtleline;
+	  delay(73);
+	  SPI0DAT = letters[_t + (temp)];
+	  SPI0DAT = letters[_u + (temp)];
+	  SPI0DAT = letters[_r + (temp)];
+	  SPI0DAT = letters[_t + (temp)];
+	  SPI0DAT = letters[_l + (temp)];
+	  delay(2);
+	  SPI0DAT = letters[_e + (temp)];        
+     }
 
    if(modeline < line && line < modeline + 9)
     {
@@ -625,7 +632,6 @@ void set_window(unsigned short line)
 			}else{
 				delay(37);
 			}
-#ifndef f042_1s_bl
 			SPI0DAT = letters[0+(temp)];
 			SPI0DAT = letters[_c+(temp)];
 			SPI0DAT = letters[_o+(temp)];
@@ -637,19 +643,6 @@ void set_window(unsigned short line)
 			SPI0DAT = letters[_g+(temp)];
 			delay(50);
 			SPI0DAT = numbers[ 96+(temp)];
-#else
-			SPI0DAT = letters[0+(temp)];
-			SPI0DAT = letters[_m+(temp)];
-			SPI0DAT = letters[_o+(temp)];
-			SPI0DAT = letters[_t+(temp)];
-			SPI0DAT = letters[_o+(temp)];
-            delay(1);
-			SPI0DAT = letters[_r+(temp)];
-            delay(1);
-			SPI0DAT = letters[_s+(temp)];
-			delay(50);
-			SPI0DAT = numbers[ 96+(temp)];
-#endif
 			break;
 
 		case 141:
@@ -1184,7 +1177,6 @@ void pid_window(unsigned short line)
 
 void motor_window(unsigned short line)
 {
-#ifndef f042_1s_bl
 		if(show_motor_menuline)
 		{
 				temp = line - 81;
@@ -1202,6 +1194,7 @@ void motor_window(unsigned short line)
 				SPI0DAT = numbers[80+(temp)];
 		}
 
+#ifndef f042_1s_bl
 		if(show_m1line)
 		{
 				temp = line - 101;
@@ -1433,6 +1426,34 @@ void motor_window(unsigned short line)
 				temp = line - 176;
 				if (index == 5)
 				{
+						delay(28);
+						SPI0DAT = numbers[ 96+(temp)];
+				}
+				else
+				{
+						delay(36);
+				}
+				SPI0DAT = letters[0+(temp)];
+				SPI0DAT = letters[_g+(temp)];
+				SPI0DAT = letters[_y+(temp)];
+				SPI0DAT = letters[ _r+(temp)];
+				SPI0DAT = letters[ _o+(temp)];
+				delay(1);
+				SPI0DAT = letters[0+(temp)];
+				delay(1);
+				SPI0DAT = letters[_c+(temp)];
+				delay(1);
+				SPI0DAT = letters[_a+(temp)];
+				delay(1);
+				SPI0DAT = letters[_l+(temp)];
+				delay(1);
+				SPI0DAT = numbers[88+(temp)];
+		}
+		if(190 < line && line < 199)
+		{
+				temp = line - 191;
+				if (index == 6)
+				{
 						delay(27);
 						SPI0DAT = numbers[ 96+(temp)];
 				}
@@ -1447,19 +1468,6 @@ void motor_window(unsigned short line)
 				SPI0DAT = letters[_k+(temp)];
 		}		
 #else
-		if(show_motor_menuline)
-		{
-				temp = line - 81;
-				delay(30);
-				SPI0DAT = numbers[80+(temp)];
-				SPI0DAT = letters[_m+(temp)];
-				SPI0DAT = letters[_o+(temp)];
-				SPI0DAT = letters[_t+(temp)];
-				SPI0DAT = letters[_o+(temp)];
-				SPI0DAT = letters[_r+(temp)];
-				delay(1);
-				SPI0DAT = numbers[80+(temp)];
-		}
 
 		if(show_m1line)
 		{
@@ -1563,10 +1571,38 @@ void motor_window(unsigned short line)
 				delay(3);
 				SPI0DAT = letters[ (m4?_n:_r)+(temp)];
 		}
-		if(show_motor_exitline)
+		if(160 < line && line < 169)
 		{
-				temp = line - 166;
+				temp = line - 161;
 				if (index == 4)
+				{
+						delay(28);
+						SPI0DAT = numbers[ 96+(temp)];
+				}
+				else
+				{
+						delay(40);
+				}
+				SPI0DAT = letters[0+(temp)];
+				SPI0DAT = letters[_g+(temp)];
+				SPI0DAT = letters[_y+(temp)];
+				SPI0DAT = letters[ _r+(temp)];
+				SPI0DAT = letters[ _o+(temp)];
+				delay(1);
+				SPI0DAT = letters[0+(temp)];
+				delay(1);
+				SPI0DAT = letters[_c+(temp)];
+				delay(1);
+				SPI0DAT = letters[_a+(temp)];
+				delay(1);
+				SPI0DAT = letters[_l+(temp)];
+				delay(1);
+				SPI0DAT = numbers[88 + (temp)];
+		}
+		if(180 < line && line < 190)
+		{
+				temp = line - 181;
+				if (index == 5)
 				{
 						delay(33);
 						SPI0DAT = numbers[ 96+(temp)];
@@ -1579,7 +1615,7 @@ void motor_window(unsigned short line)
 				SPI0DAT = letters[_b+(temp)];
 				SPI0DAT = letters[_a+(temp)];
 				SPI0DAT = letters[_c+(temp)];
-                delay(2);
+				delay(2);
 				SPI0DAT = letters[_k+(temp)];
 		}		
 

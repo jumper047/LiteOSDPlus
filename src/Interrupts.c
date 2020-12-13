@@ -44,6 +44,7 @@ SI_INTERRUPT (INT0_ISR, INT0_IRQn)
 	blink_count++;
 	if(blink_count>=16129){
 	  blink_state = !blink_state;
+	  blink_count = 0;
 	}
 
         if(lock == 1 && showcase == 0)
