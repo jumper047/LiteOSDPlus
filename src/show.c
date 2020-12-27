@@ -1299,95 +1299,36 @@ void motor_window(unsigned short line)
 				switch(led_color){
 				case 0:
 				  SPI0DAT = letters[_w+(temp)];
-				  SPI0DAT = letters[ _h+(temp)];
-				  SPI0DAT = letters[ _i+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _t+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[_e+(temp)];
 				  break;
-
 				case 1:
 				  SPI0DAT = letters[_p+(temp)];
-				  SPI0DAT = letters[_i+(temp)];
-				  SPI0DAT = letters[_n+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _k+(temp)];
 				  break;
 
 				case 2:
 				  SPI0DAT = letters[_r+(temp)];
-				  SPI0DAT = letters[ _e+(temp)];
-				  SPI0DAT = letters[ _d+(temp)];
 				  break;
 
 				case 3:
 				  SPI0DAT = letters[_o+(temp)];
-				  SPI0DAT = letters[ _r+(temp)];
-				  SPI0DAT = letters[ _a+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _n+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[_g+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _e+(temp)];
 				  break;
 
 				case 4:
 				  SPI0DAT = letters[_y+(temp)];
-				  SPI0DAT = letters[ _e+(temp)];
-				  SPI0DAT = letters[ _l+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _l+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[_o+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _w+(temp)];
 				  break;
 
 				case 5:
 				  SPI0DAT = letters[_g+(temp)];
-				  SPI0DAT = letters[ _r+(temp)];
-				  SPI0DAT = letters[ _e+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _e+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[_n+(temp)];
 				  break;
 
 				case 6:
 				  SPI0DAT = letters[_c+(temp)];
-				  SPI0DAT = letters[ _y+(temp)];
-				  SPI0DAT = letters[ _a+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _n+(temp)];
 				  break;
 
 				case 7:
 				  SPI0DAT = letters[_m+(temp)];
-				  SPI0DAT = letters[ _a+(temp)];
-				  SPI0DAT = letters[ _g+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _e+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[_n+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _t+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _a+(temp)];
 				  break;
 				case 8:
 				  SPI0DAT = letters[_r+(temp)];
-				  SPI0DAT = letters[ _a+(temp)];
-				  SPI0DAT = letters[ _i+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _n+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[_b+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _o+(temp)];
-				  delay(1);
-				  SPI0DAT = letters[ _w+(temp)];
 				  break;
 
 				}
