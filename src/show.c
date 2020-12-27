@@ -1189,7 +1189,7 @@ void motor_window(unsigned short line)
 				SPI0DAT = numbers[80+(temp)];
 		}
 
-#ifndef f042_1s_bl
+#ifdef f042_1s_bayang
 		if(show_m1line)
 		{
 				temp = line - 101;
